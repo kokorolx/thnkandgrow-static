@@ -1,0 +1,322 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Tips &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/category/technology/tips/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sat, 13 May 2023 15:36:23 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>Tips &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Understanding User Scripts When Launching EC2 Instances</title>
+		<link>/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sat, 13 May 2023 15:36:23 +0000</pubDate>
+				<category><![CDATA[AWS]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Tips]]></category>
+		<guid isPermaLink="false">/?p=359</guid>
+
+					<description><![CDATA[<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we will discuss user scripts in more detail and how they can be used to automate instance configuration and management tasks.</p>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading">What are User Scripts?</h2>
+
+
+
+<p>User scripts are scripts that are executed when an EC2 instance is launched. They can be written in any scripting language, including bash, Python, or PowerShell, and are passed to the instance during launch as part of the instance metadata. User scripts can be used to perform various tasks, such as installing software, configuring the instance, and running custom scripts.</p>
+
+
+
+<h2 class="wp-block-heading">Why Use User Scripts?</h2>
+
+
+
+<p>User scripts can be used to automate the process of launching and configuring EC2 instances. This can save time and reduce the chance of errors when configuring instances manually. For example, you can use user scripts to automatically install and configure web servers, databases, or other software on the instance. User scripts can also be used to customize instances based on your specific needs, such as setting up a specific directory structure or configuring the network settings.</p>
+
+
+
+<h2 class="wp-block-heading">How to Use User Scripts?</h2>
+
+
+
+<p>To use a user script when launching an EC2 instance, you can provide the script as part of the instance&#8217;s user data. This can be done through the EC2 console, API, or command-line interface. When the instance is launched, the user script will be passed to the instance and executed automatically.</p>
+
+
+
+<p>It&#8217;s important to note that user scripts should be idempotent, meaning that they should be able to be executed multiple times without causing issues. This is because EC2 instances can be stopped and started multiple times during their lifetime, and the user script will be executed each time the instance is launched.</p>
+
+
+
+<p>Example user script to deploy Rails app with redis, nodejs, ruby installed with rvm, postgresql and puma config for nginx (for <strong>ubuntu</strong>)</p>
+
+
+
+<pre class="wp-block-code"><code>#!/bin/bash
+sudo apt-get update
+sudo apt-get -y install build-essential libssl-dev libreadline-dev zlib1g-dev git
+sudo apt-get -y install libpq-dev postgresql postgresql-contrib
+sudo apt-get -y install redis-server
+sudo apt-get -y install nodejs
+sudo apt-get -y install nginx
+
+# Install RVM and Ruby
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get -y install rvm
+source /etc/profile.d/rvm.sh
+rvm install 2.7.4
+rvm use 2.7.4 --default
+
+# Install Bundler
+gem install bundler
+
+# Configure PostgreSQL
+sudo -u postgres createuser --superuser ubuntu
+sudo -u postgres createdb -O ubuntu myapp_production
+
+# Configure Nginx
+sudo rm /etc/nginx/sites-enabled/default
+sudo touch /etc/nginx/sites-available/myapp
+sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
+sudo bash -c "cat > /etc/nginx/sites-available/myapp" &lt;&lt;EOF
+upstream myapp {
+  server unix:///var/www/myapp/myapp.sock;
+}
+
+server {
+  listen 80;
+  server_name myapp.com;
+
+  root /var/www/myapp/public;
+
+  try_files \$uri/index.html \$uri @myapp;
+
+  location @myapp {
+    proxy_pass http://myapp;/
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_http_version 1.1;
+    proxy_set_header Connection '';
+    chunked_transfer_encoding off;
+    proxy_cache_bypass \$http_pragma;
+    proxy_cache_revalidate on;
+    proxy_cache_valid 200 5m;
+    expires 5m;
+  }
+}
+EOF
+
+sudo service nginx restart
+</code></pre>
+
+
+
+<p>When the instance is booted for the first time, this script will run and the output will be in the <code>/var/log/cloud-init-output.log</code> directory on your instance.</p>
+
+
+
+<h2 class="wp-block-heading">Best Practices for Using User Scripts</h2>
+
+
+
+<p>When using user scripts, there are some best practices to follow to ensure that they are effective and reliable:</p>
+
+
+
+<ol><li>Use version control: User scripts should be stored in a version control system, such as Git, to ensure that they can be easily tracked and modified over time.</li><li>Test your scripts: Before using user scripts in production, they should be thoroughly tested to ensure that they work as expected.</li><li>Keep scripts simple: User scripts should be simple and easy to read, to avoid potential issues when troubleshooting.</li><li>Use cloud-init: Cloud-init is a tool that can be used to configure and customize instances when they are launched. It can be used to install packages, run scripts, and set up users and SSH keys.</li><li>Use pre-built scripts: There are many pre-built scripts available online that can be used as a starting point for configuring instances. These can save time and reduce the risk of errors when writing user scripts from scratch.</li></ol>
+
+
+
+<h2 class="wp-block-heading">Conclusion</h2>
+
+
+
+<p>User scripts are a powerful tool for automating the process of launching and configuring EC2 instances. By providing a script during instance launch, users can automate the installation and configuration of software, customize instances to their specific needs, save time, and reduce the risk of errors when configuring instances manually. By following best practices for using user scripts, such as testing scripts and keeping them simple, users can ensure that their instances are configured reliably and effectively.</p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p>Notion: https://www.notion.so/hoangtamle/Deploy-rails-to-AWS-47d46f0310e54ebcb9b0c11e6b262b49?pvs=4</p>
+<div class="post-views content-post post-359 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Tôi đã tăng 100GB dung lượng cho máy tính bằng cách nào?</title>
+		<link>/blog/2021/12/12/toi-da-tang-100gb-dung-luong-cho-may-tinh-bang-cach-nao/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 12 Dec 2021 04:31:08 +0000</pubDate>
+				<category><![CDATA[Tips]]></category>
+		<category><![CDATA[dust]]></category>
+		<category><![CDATA[tăng dung lượng sử dụng]]></category>
+		<guid isPermaLink="false">/?p=262</guid>
+
+					<description><![CDATA[<p>Sau một khoảng thời gian dài sử dụng máy tính của chúng ta sẽ có rất nhiều Rác. Cách mình sắp hướng dẫn chỉ là xoá rác hoặc các phần mềm không cần thiết. Lưu ý: Chỉ xoá những thứ bạn chắc chắn biết và không cần sử dụng. Chuyện là hôm trước mình vô [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/12/12/toi-da-tang-100gb-dung-luong-cho-may-tinh-bang-cach-nao/">Tôi đã tăng 100GB dung lượng cho máy tính bằng cách nào?</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Sau một khoảng thời gian dài sử dụng máy tính của chúng ta sẽ có rất nhiều <code>Rác</code>. Cách mình sắp hướng dẫn chỉ là xoá rác hoặc các phần mềm không cần thiết.</p>
+
+
+
+<p>Lưu ý: Chỉ xoá những thứ bạn chắc chắn biết và không cần sử dụng.</p>
+
+
+
+<p></p>
+
+
+
+<p>Chuyện là hôm trước mình vô tình tìm kiếm và cũng được 1 anh nói về <code>Dust</code>, thấy khá hay và hữu ích nên mình quyết định chia sẽ 1 chút về nó.</p>
+
+
+
+<p>Repo: <code>https://github.com/bootandy/dust</code></p>
+
+
+
+<p>Công dụng chính: Cho bạn thấy được thư mục nào đang có dung lượng sử dụng nhiều nhất</p>
+
+
+
+<p>Support OS: Mac, Ubuntu, Window</p>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading">Cài đặt</h2>
+
+
+
+<p>Mình sử dụng homebrew nên cài bằng homebrew luôn cho dễ: <code>brew install dust</code></p>
+
+
+
+<p>Ngoài ra <code>Dust</code> có support một vài cách cài đặt khác nữa.</p>
+
+
+
+<h2 class="wp-block-heading">Sử dụng</h2>
+
+
+
+<p>Rất đơn giản, bạn chỉ cần vào thư mục cần xoá rác bằng termial, sau đó gõ <code>dust</code> và xem kết quả. Ví dụ nhé:</p>
+
+
+
+<p>Mình muốn xoá những file lớn và trong thư mục Download:</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/12/image-745x1024.png" alt="" class="wp-image-276" width="745" height="1024" srcset="/wp-content/uploads/2021/12/image-745x1024.png 745w, /wp-content/uploads/2021/12/image-218x300.png 218w, /wp-content/uploads/2021/12/image-768x1056.png 768w, /wp-content/uploads/2021/12/image-500x687.png 500w, /wp-content/uploads/2021/12/image-800x1100.png 800w, /wp-content/uploads/2021/12/image.png 1067w" sizes="(max-width: 745px) 100vw, 745px" /></figure></div>
+
+
+
+<p>Ở đây mình thấy có file <code>workspaces.zip</code> khá nặng và mình cũng không dùng nữa, nên sẽ xoá nó đi để giải phóng dung lượng <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> </p>
+
+
+
+<p>Cách xoá thì bạn có thể gõ: <code>rm -rf workspaces.zip</code> hoặc mở thử mục download lên và xoá file đó thôi. </p>
+
+
+
+<p>Quá đơn giản phải không nào <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> </p>
+
+
+
+<p></p>
+
+
+
+<p>Ngoài ra <code>dust</code> còn có nhiều options khác nhau, bạn có thể tham khảo thêm:</p>
+
+
+
+<pre class="wp-block-code"><code>Usage: dust
+Usage: dust &lt;dir>
+Usage: dust &lt;dir>  &lt;another_dir> &lt;and_more>
+Usage: dust -p (full-path - Show fullpath of the subdirectories)
+Usage: dust -s (apparent-size - shows the length of the file as opposed to the amount of disk space it uses)
+Usage: dust -n 30 (shows 30 directories instead of the default &#91;default is terminal height])
+Usage: dust -d 3  (shows 3 levels of subdirectories)
+Usage: dust -r  (reverse order of output)
+Usage: dust -X ignore  (ignore all files and directories with the name 'ignore')
+Usage: dust -x (only show directories on the same filesystem)
+Usage: dust -b (do not show percentages or draw ASCII bars)
+Usage: dust -i (do not show hidden files)
+Usage: dust -c (No colors &#91;monochrome])
+Usage: dust -f (Count files instead of diskspace)
+Usage: dust -t Group by filetype
+Usage: dust -e regex Only include files matching this regex (eg dust -e "\.png$" would match png files)</code></pre>
+
+
+
+<p>Thanks to <code>dust</code> team!</p>
+
+
+
+<p></p>
+
+
+
+<blockquote class="wp-block-quote"><p>Chỉ là 1 bài chia sẽ cá nhân</p><cite>TamLH</cite></blockquote>
+<div class="post-views content-post post-262 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">11</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/12/12/toi-da-tang-100gb-dung-luong-cho-may-tinh-bang-cach-nao/">Tôi đã tăng 100GB dung lượng cho máy tính bằng cách nào?</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

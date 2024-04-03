@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>Architecture &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/category/technology/architecture/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sun, 26 Sep 2021 04:55:40 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>Architecture &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Những công nghệ mà pinterest đã/đang dùng(2013)</title>
+		<link>/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 26 Sep 2021 04:51:44 +0000</pubDate>
+				<category><![CDATA[Architecture]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[architecture]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[Clustering Vs Sharding]]></category>
+		<category><![CDATA[Lessons Learned]]></category>
+		<category><![CDATA[memcache]]></category>
+		<category><![CDATA[pinterest]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[solr]]></category>
+		<guid isPermaLink="false">/?p=244</guid>
+
+					<description><![CDATA[<p>Why Amazon EC2/S3? Pretty good reliability. Datacenters go down too. Multitenancy adds some risk, but it’s not bad. Good reporting and support. They have really good architects and they know the problems Nice peripherals, especially when you are growing. You can spin up in App Engine and talk to their managed cache, load balancing, map [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/">Những công nghệ mà pinterest đã/đang dùng(2013)</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">Why Amazon EC2/S3?</h2>
+
+
+
+<div class="wp-block-image is-style-rounded"><figure class="aligncenter size-large is-resized"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/09/aws-logo-1024x538.png" alt="" class="wp-image-245" width="400" height="185"/><figcaption>AWS</figcaption></figure></div>
+
+
+
+<ul><li>Pretty good reliability. Datacenters go down too. Multitenancy adds some risk, but it’s not bad.</li><li>Good reporting and support. They have really good architects and they know the problems</li><li>Nice peripherals, especially when you are growing. You can spin up in App Engine and talk to their managed cache, load balancing, map reduce, managed databases, and all the other parts that you don’t have to write yourself. You can bootstrap on Amazon’s services and then evolve them when you have the engineers.</li><li>New instances available in seconds. The power of the cloud. Especially with two engineers you don’t have to worry about capacity planning or wait two weeks to get your memcache. 10 memcaches can be added in a matter of minutes.</li><li>Cons: limited choice. Until recently you could get SSDs and you can’t get large RAM configurations.</li><li>Pros: limited choice. You don’t end up with a lot of boxes with different configurations.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why MySQL?</h2>
+
+
+
+<div class="wp-block-image is-style-rounded"><figure class="aligncenter size-large is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1024x575.png" alt="" class="wp-image-247" width="400" height="-344" srcset="/wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1024x575.png 1024w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-300x169.png 300w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-768x432.png 768w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1536x863.png 1536w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-500x281.png 500w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-800x450.png 800w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1280x719.png 1280w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971.png 1600w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>Mysql</figcaption></figure></div>
+
+
+
+<ul><li>Really mature.</li><li>Very solid. It’s never gone down for them and it’s never lost data.</li><li>You can hire for it. A lot of engineers know MySQL.</li><li>Response time to request rate increases linearly. Some technologies don’t respond as well when the request rate spikes.</li><li>Very good software support &#8211; XtraBackup, Innotop, Maatkit</li><li>Great community. Getting questions answered is easy.</li><li>Very good support from companies like Percona.</li><li>Free &#8211; important when you don’t have any funding initially.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why Memcache?</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/download.jpeg" alt="" class="wp-image-248" width="400" height="193"/><figcaption>memcache</figcaption></figure></div>
+
+
+
+<ul><li>Very mature.</li><li>Really simple. It’s a hashtable with a socket jammed in.</li><li>Consistently good performance</li><li>Well known and liked.</li><li>Consistently good performance.</li><li>Never crashes.</li><li>Free</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why Redis?</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/Redis_Logo.svg_-1-1024x342.png" alt="" class="wp-image-250" width="400" srcset="/wp-content/uploads/2021/09/Redis_Logo.svg_-1-1024x342.png 1024w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-300x100.png 300w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-768x257.png 768w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-500x167.png 500w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-800x268.png 800w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1.png 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>redis</figcaption></figure></div>
+
+
+
+<ul><li>Not mature, but it’s really good and pretty simple.</li><li>Provides a variety of data structures.</li><li>Has persistence and replication, with selectability on how you want them implemented. If you want MySQL style persistence you can have it. If you want no persistence you can have it. Or if you want 3 hour persistence you can have it.<ul><li>Your home feed is on Redis and is saved every 3 hours. There’s no 3 hour replication. They just backup every 3 hours.</li><li>If the box your data is stored on dies, then they just backup a few hours. It’s not perfectly reliable, but it is simpler. You don’t need complicated persistence and replication. It’s a lot simpler and cheaper architecture.</li></ul></li><li>Well known and liked.</li><li>Consistently good performance.</li><li>Few failure modes. Has a few subtle failure modes that you need to learn about. This is where maturity comes in. Just learn them and get past it.</li><li>Free</li></ul>
+
+
+
+<h2 class="wp-block-heading">Solr</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/download.png" alt="" class="wp-image-251" width="400" height="267"/><figcaption>Search engine</figcaption></figure></div>
+
+
+
+<ul><li>A great get up and go type product. Install it and a few minutes later you are indexing.</li><li>Doesn’t scale past one box. (not so with latest release)</li><li>Tried Elastic Search, but at their scale it had trouble with lots of tiny documents and lots of queries.</li><li>Now using Websolr. But they have a search team and will roll their own.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Clustering Vs Sharding</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img loading="lazy" decoding="async" src="/wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the.png" alt="Clustering Vs Sharding" class="wp-image-252" width="850" height="177" srcset="/wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the.png 850w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-300x62.png 300w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-768x160.png 768w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-500x104.png 500w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-800x167.png 800w" sizes="(max-width: 850px) 100vw, 850px" /><figcaption><meta charset="utf-8">Clustering Vs Sharding</figcaption></figure></div>
+
+
+
+<ul><li>During rapid growth they realized they were going to need to spread their data evenly to handle the ever increasing load.</li><li>Defined a spectrum to talk about the problem and they came up with a range of options between Clustering and Sharding.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Clustering &#8211; <strong>Everything Is Automatic</strong>:</h3>
+
+
+
+<ul><li>Examples: Cassandra, MemBase, HBase</li><li>Verdict: too scary, maybe in the future, but for now it’s too complicated and has way too many failure modes.</li><li>Properties:<ul><li>Data distributed automatically</li><li>Data can move</li><li>Rebalance to distribute capacity</li><li>Nodes communicate with each other. <strong>A lot of crosstalk, gossiping and negotiation.</strong></li></ul></li><li>Pros:<ul><li>Automatically scale your datastore. That’s what the white papers say at least.</li><li>Easy to setup.</li><li>Spatially distribute and colocate your data. You can have datacenter in different regions and the database takes care of it.</li><li>High availability</li><li>Load balancing</li><li>No single point of failure</li></ul></li><li>Cons (from first hand experience):<ul><li>Still fairly young.<strong>(the origin blog wrote from 2013, now is 2021)</strong></li><li>Fundamentally complicated. A whole bunch nodes have to symmetrical agreement, which is a hard problem to solve in production.</li><li>Less community support. There’s a split in the community along different product lines so there’s less support in each camp.</li><li>Fewer engineers with working knowledge. Probably most engineers have not used Cassandra.</li><li>Difficult and scary upgrade mechanisms. Could be related to they all use an API and talk amongst themselves so you don’t want them to be confused. This leads to complicated upgrade paths.</li><li>Cluster Management Algorithm is a SPOF. If there’s a bug it impacts every node. This took them down 4 times.</li><li>Cluster Managers are complex code replicated over all nodes that have the following failure modes:<ul><li>Data rebalance breaks. Bring a new box and data starts replicating and then it gets stuck. What do you do? There aren’t tools to figure out what’s going on. There’s no community to help, so they were stuck. They reverted back to MySQL.</li><li>Data corruption across all nodes. What if there’s a bug that sprays badness into the write log across all of them and compaction or some other mechanism stops? Your read latencies increase. All your data is screwed and the data is gone.</li><li>Improper balancing that cannot be easily fixed. Very common. You have 10 nodes and you notice all the node is on one node. There’s a manual process, but it redistributes the load back to one node.</li><li>Data authority failure. Clustering schemes are very smart. In one case they bring in a new secondary. At about 80% the secondary says it’s primary and the primary goes to secondary and you’ve lost 20% of the data. Losing 20% of the data is worse than losing all of it because you don’t know what you’ve lost.</li></ul></li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Sharding &#8211; <strong>Everything Is Manual</strong>:</h3>
+
+
+
+<ul><li>Verdict: It’s the winner. Note, I think their sharding architecture has a lot in common with&nbsp;<a href="http://highscalability.com/blog/2007/11/13/flickr-architecture.html">Flickr Architecture</a>.</li><li>Properties:<ul><li>Get rid of all the properties of clustering that you don’t like and you get sharding.</li><li>Data distributed manually</li><li>Data does not move. They don’t ever move data, though some people do, which puts them higher on the spectrum.</li><li>Split data to distribute load.</li><li>Nodes are not aware of each other. Some master node controls everything.</li></ul></li><li>Pros:<ul><li>Can split your database to add more capacity.</li><li>Spatially distribute and collocate your data</li><li>High availability</li><li>Load balancing</li><li>Algorithm for placing data is very simple. The main reason. Has a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure" target="_blank" rel="noreferrer noopener nofollow">SPOF</a>, but it’s half a page of code rather than a very complicated Cluster Manager. After the first day it will work or won’t work.</li><li>ID generation is simplistic.</li></ul></li><li>Cons:<ul><li>Can’t perform most joins.</li><li>Lost all transaction capabilities. A write to one database may fail when a write to another succeeds.</li><li>Many constraints must be moved to the application layer.</li><li>Schema changes require more planning.</li><li>Reports require running queries on all shards and then perform all the aggregation yourself.</li><li>Joins are performed in the application layer.</li><li>Your application must be tolerant to all these issues.</li></ul></li></ul>
+
+
+
+<h2 class="wp-block-heading"><strong>When To Shard?</strong></h2>
+
+
+
+<ul><li>If your project will have a few TBs of data then you should shard as soon as possible.</li><li>When the Pin table went to a billion rows the indexes ran out of memory and they were swapping to disk.</li><li>They picked the largest table and put it in its own database.</li><li>Then they ran out of space on the single database.</li><li>Then they had to shard.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Transition To Sharding</h3>
+
+
+
+<ul><li>Started the transition process with a feature freeze.</li><li>Then they decided how they wanted to shard. Want to perform the least amount of queries and go to least number of databases to render a single page.</li><li>Removed all MySQL joins. Since the tables could be loaded into separate partitions joins would not work.</li><li>Added a ton of cache. Basically every query has to be cached.</li><li>The steps looked like:<ul><li>1 DB + Foreign Keys + Joins</li><li>1 DB + Denormalized + Cache</li><li>1 DB + Read Slaves + Cache</li><li>Several functionally sharded DBs + Read slaves + Cache</li><li>ID sharded DBs + Backup slaves + cache</li></ul></li><li>Earlier read slaves became a problem because of slave lag. A read would go to the slave and the master hadn’t replicated the record yet, so it looked like a record was missing. Getting around that require cache.</li><li>They have background scripts that duplicate what the database used to do. Check for integrity constraints, references.</li><li>User table is unsharded. They just use a big database and have a uniqueness constraint on user name and email. Inserting a User will fail if it isn’t unique. Then they do a lot of writes in their sharded database.</li></ul>
+
+
+
+<h3 class="wp-block-heading">How To Shard?</h3>
+
+
+
+<ul><li>Looked at <a href="https://cassandra.apache.org/_/index.html" target="_blank" rel="noreferrer noopener nofollow">Cassandra’s ring model</a>. Looked at <a href="https://www.couchbase.com/press-releases/membase-general-availability" target="_blank" rel="noreferrer noopener nofollow">Membase</a>. And looked at <a href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-gizzard-a-framework-for-creating-distributed-datastores" target="_blank" rel="noreferrer noopener nofollow">Twitter’s Gizzard</a>.</li><li>Determined: the least data you move across your nodes the more stable your architecture.</li><li>Cassandra has a data balancing and authority problems because the nodes weren’t sure of who owned which part of the data. They decided the application should decide where the data should go so there is never an issue.</li><li>Projected their growth out for the next five years and presharded with that capacity plan in mind.</li><li>Initially created a lot of virtual shards. 8 physical servers, each with 512 DBs. All the databases have all the tables.</li><li>For high availability they always run in multi-master replication mode. Each master is assigned to a different availability zone. On failure the switch to the other master and bring in a new replacement node.</li><li>When load increasing on a database:<ul><li>Look at code commits to see if a new feature, caching issue, or other problem occurred.</li><li>If it’s just a load increase they split the database and tell the applications to find the data on a new host.</li><li>Before splitting the database they start slaves for those masters. Then they swap application code with the new database assignments. In the few minutes during the transition writes are still write to old nodes and be replicated to the new nodes. Then the pipe is cut between the nodes.</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">ID Structure</h3>
+
+
+
+<ul><li>64 bits:<ul><li>shard ID: 16 bits</li><li>type : 10 bits &#8211; Pin, Board, User, or any other object type</li><li>local ID &#8211; rest of the bits for the ID within the table. Uses MySQL auto increment.</li></ul></li><li>Twitter uses a mapping table to map IDs to a physical host. Which requires a lookup. Since Pinterest is on AWS and MySQL queries took about 3ms, they decided this extra level of indirection would not work. They build the location into the ID.</li><li>New users are randomly distributed across shards.</li><li>All data (pins, boards, etc) for a user is collocated on the same shard. Huge advantage. Rendering a user profile, for example, does not take multiple cross shard queries. It’s fast.</li><li>Every board is collocated with the user so boards can be rendered from one database.</li><li>Enough shards IDs for 65536 shards, but they only opened 4096 at first, they’ll expand horizontally. When the user database gets full they’ll open up more shards and allow new users to go to the new shards.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Lookups</h3>
+
+
+
+<ul><li>If they have 50 lookups, for example, they split the IDs and run all the queries in parallel so the latency is the longest wait.</li><li>Every application has a configuration file that maps a shard range to a physical host.<ul><li>“sharddb001a”: : (1, 512)</li><li>“sharddb001b”: : (513, 1024) &#8211; backup hot master</li></ul></li><li>If you want to look up a User whose ID falls into sharddb003a:<ul><li>Decompose the ID into its parts</li><li>Perform the lookup in the shard map</li><li>Connect to the shard, go to the database for the type, and use the local ID to find the right user and return the serialized data.</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Objects And Mappings</h3>
+
+
+
+<ul><li>All data is either an object (pin, board, user, comment) or a mapping (user has boards, pins has likes).</li><li>For objects a Local ID maps to a MySQL blob. The blob format started with JSON but is moving to serialized thrift.</li><li>For mappings there’s a mapping table. &nbsp;You can ask for all the boards for a user. The IDs contain a timestamp so you can see the order of events.<ul><li>There’s a reverse mapping, many to many table, to answer queries of the type give me all the users who like this pin.</li><li>Schema naming scheme is noun_verb_noun: user_likes_pins, pins_like_user.</li></ul></li><li>Queries are primary key or index lookups (no joins).</li><li>Data doesn’t move across database as it does with clustering. Once a user lands on shard 20, for example, and all the user data is collocated, it will never move. The 64 bit ID has contains the shard ID so it can’t be moved. You can move the physical data to another database, but it’s still associated with the same shard.</li><li>All tables exist on all shards. No special shards, not counting the huge user table that is used to detect user name conflicts.</li><li>No schema changes required and a new index requires a new table.<ul><li>Since the value for a key is a blob, you can add fields without destroying the schema. There’s versioning on each blob so applications will detect the version number and change the record to the new format and write it back. All the data doesn’t need to change at once, it will be upgraded on reads.</li><li>Huge win because altering a table takes a lock for hours or days. &nbsp;If you want a new index you just create a new table and start populating it. When you don’t want it anymore just drop it. (no mention of how these updates are transaction safe).</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Rendering A User Profile Page</h3>
+
+
+
+<ul><li>Get the user name from the URL. Go to the single huge database to find the user ID.</li><li>Take the user ID and split it into its component parts.</li><li>Select the shard and go to that shard.</li><li>SELECT body from users WHERE id = &lt;local_user_id&gt;</li><li>SELECT board_id FROM user_has_boards WHERE user_id=&lt;user_id&gt;</li><li>SELECT body FROM boards WHERE id IN (&lt;boards_ids&gt;)</li><li>SELECT pin_id FROM board_has_pins WHERE board_id=&lt;board_id&gt;</li><li>SELECT body FROM pins WHERE id IN (pin_ids)</li><li>Most of the calls are served from cache (memcache or redis), so it’s not a lot of database queries in practice.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Scripting</h3>
+
+
+
+<ul><li>When moving to a sharded architecture you have two different infrastructures, one old, the unsharded system, and one new, the sharded system. Scripting is all the code to transfer the old stuff to the new stuff.</li><li>They moved 500 million pins and 1.6 billion follower rows, etc</li><li>Underestimated this portion of the project. They thought it would take 2 months to put data in the shards, it actually took 4-5 months. And remember, this was during a feature freeze.</li><li>Applications must always write to both old and new infrastructures.</li><li>Once confident that all your data is in the new infrastructure then point your reads to the new infrastructure and slowly increase the load and test your backends.</li><li>Built a scripting farm. Spin up more workers to complete the task faster. They would do tasks like move these tables over to the new infrastructure.</li><li>Hacked up a copy of <a href="https://github.com/binarymatt/pyres" target="_blank" rel="noreferrer noopener nofollow">Pyres</a>, a Python interface to Github’s Resque queue, a queue on built on top of redis. Supports priorities and retries. It was so good they replaced Celery and RabbitMQ with Pyres.</li><li>A lot of mistakes in the process. Users found errors like missing boards. Had to run the process several times to make sure no transitory errors prevented data from being moved correctly.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Development</h2>
+
+
+
+<ul><li>Initially tried to give developers a slice of the system. Each having their own MySQL server, etc, but things changed so fast this didn’t work.</li><li>Went to Facebook’s model where everyone has access to everything. So you have to be really careful.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Future Directions</h2>
+
+
+
+<ul><li>Service based architecture.<ul><li>As they are starting to see a lot of database load they start to spawn a lot of app servers and a bunch of other servers. All these servers connect to MySQL and memcache. This means there are 30K connections on memcache which takes up a couple of gig of RAM and causes the memcache daemons to swap.</li><li>As a fix these are moving to a service architecture. There’s a follower service, for example, that will only answer follower queries. This isolates the number of machines to 30 that access the database and cache, thus reducing the number of connections.</li><li>Helps isolate functionality. Helps organize teams around around services and support for those services. Helps with security as developer can’t access other services.</li></ul></li></ul>
+
+
+
+<h2 class="wp-block-heading">Lessons Learned</h2>
+
+
+
+<ul><li>It will fail. Keep it simple.</li><li>Keep it fun. There’s a lot of new people joining the team. If you just give them a huge complex system it won’t be fun. Keeping the architecture simple has been a big win. New engineers have been contributing code from week one.</li><li>When you push something to the limit all these technologies fail in their own special way.</li><li>Architecture is doing the right thing when growth can be handled by adding more of the same stuff. You want to be able to scale by throwing money at the problem by throwing more boxes at the problem as you need them. If your architecture can do that, then you’re golden.</li></ul>
+
+
+
+<ul><li>Cluster Management Algorithm is a SPOF. If there’s a bug it impacts every node. This took them down 4 times.</li><li>To handle rapid growth you need to spread data out evenly to handle the ever increasing load.</li><li>The least data you move across your nodes the more stable your architecture. This is why they went with sharding over clusters.</li><li>A service oriented architecture rules. It isolates functionality, helps reduce connections, organize teams, organize support, and &nbsp;improves security.</li></ul>
+
+
+
+<ul><li>Asked yourself what your really want to be. Drop technologies that match that vision, even if you have to rearchitecture everything.</li><li>Don’t freak out about losing a little data. They keep user data in memory and write it out periodically. A loss means only a few hours of data are lost, but the resulting system is much simpler and more robust, and that’s what matters.</li></ul>
+
+
+
+<blockquote class="wp-block-quote is-style-default"><p><a href="http://highscalability.com/blog/2013/4/15/scaling-pinterest-from-0-to-10s-of-billions-of-page-views-a.html" target="_blank" rel="noreferrer noopener">from: http://highscalability.com/blog/2013/4/15/scaling-pinterest-from-0-to-10s-of-billions-of-page-views-a.html</a></p></blockquote>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p>NOTE: save for me!</p>
+<div class="post-views content-post post-244 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">3</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/">Những công nghệ mà pinterest đã/đang dùng(2013)</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

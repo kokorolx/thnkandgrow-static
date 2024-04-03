@@ -1,0 +1,261 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>MailGun &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/tag/mailgun/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sun, 24 Apr 2022 11:55:39 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>MailGun &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</title>
+		<link>/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:55:36 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS S3]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[Google Clond Function]]></category>
+		<category><![CDATA[iRdMail]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=73</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework. Table of contents: Giới thiệu serverless architecture và serverless framework Giới thiệu AWS Lambda So sánh AWS Lambda với Google Cloud Functions Nhiệm vụ của AWS Lambda trong hệ thống Lambda nhận notify từ MailGun [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework.</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu serverless architecture và serverless framework</li><li>Giới thiệu AWS Lambda</li><li>So sánh AWS Lambda với Google Cloud Functions </li><li>Nhiệm vụ của AWS Lambda trong hệ thống<ol><li>Lambda nhận notify từ MailGun</li><li>Lambda nhận notify từ SQS để upload <code>Raw email</code> lên AWS S3</li><li>Lambda nhận notify từ AWS S3 để download và gửi mail đến iRedMail</li></ol></li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-5---gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)">Phần 5 &#8211; Giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ </a>trong Mail server</p>
+<div class="post-views content-post post-73 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">21</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</title>
+		<link>/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:54:59 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=58</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với iRedMail Table of contents Giới thiệu MailGun So sánh giữ MailGun và một số dịch vụ Mail khác Giới thiệu [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></p>
+
+
+
+<h2 class="wp-block-heading">Table of contents</h2>
+
+
+
+<ol><li>Giới thiệu MailGun</li><li>So sánh giữ MailGun và một số dịch vụ Mail khác</li><li>Giới thiệu một số chức năng của MailGun</li><li>Vì sao phải sử dụng MailGun trong Mail server của mình?</li><li>Tích hợp MailGun vào <a href="/blog/tag/iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li>Một số tích hợp khác để MailGun có thể hoạt động với <a href="/blog/tag/aws/">AWS</a></li><li>Kết Luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/(opens in a new tab)" target="_blank" rel="noreferrer noopener">Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết của mail server</a></p>
+<div class="post-views content-post post-58 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">12</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Series hướng dẫn setup Server mail</title>
+		<link>/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 04 Apr 2021 15:40:19 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=39</guid>
+
+					<description><![CDATA[<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi và nhận mail. Kết hợp mailgun và một số công nghệ của AWS để lưu trữ incoming email.</p>
+<p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi/nhận mail và một số công nghệ của AWS để lưu trữ incoming email.</p>
+
+
+
+<p>Bài viết mang tính chất chia sẽ và lưu trữ kiến thức</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Yêu cầu bài toán &#8211; Flowchart</li><li>Các công nghệ sử dụng<ol><li><a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li><a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)">MailGun &#8211; Một nhà cung cấp SMTP miễn phí</a></li><li><a href="/?p=66" target="_blank" rel="noreferrer noopener">AWS Route53 và config DNS</a></li><li><a href="/blog/2021/04/04/tut-phan-4-aws-lambda-serverless-framework/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS Lambda &#8211; Serverless framework</a></li><li><a href="/blog/2021/04/04/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a></li></ol></li><li>Implemented code</li></ol>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-1 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<h1 class="wp-block-heading">Yêu cầu bài toán:</h1>
+
+
+
+<p>Khách hàng muốn có 1 con server mail riêng để gửi và nhận email và đề xuất  dùng iRedMail. Sau một số discuss thì khách hàng quyết định kết hợp với mailgun để tránh virus/spam.</p>
+
+
+
+<pre class="wp-block-code"><code>The dream goal would be for us to send and receive email through mailgun and we would use mailgun for virus / spam detection.</code></pre>
+
+
+
+<p>Các bạn có thể xem thêm flowchart để dễ hiểu requirement</p>
+
+
+
+<figure class="wp-block-image size-large is-resized is-style-default"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/04/image-1024x608.png" alt="Flowchart " class="wp-image-40" width="780" height="463" srcset="/wp-content/uploads/2021/04/image-1024x608.png 1024w, /wp-content/uploads/2021/04/image-300x178.png 300w, /wp-content/uploads/2021/04/image-768x456.png 768w, /wp-content/uploads/2021/04/image-1536x912.png 1536w, /wp-content/uploads/2021/04/image-2048x1216.png 2048w" sizes="(max-width: 780px) 100vw, 780px" /><figcaption>Flowchart </figcaption></figure>
+
+
+
+<p>Giải thích sơ bộ flowchart 1 chút nhé.</p>
+
+
+
+<p><strong>Step1: Người gửi mail(sender) sẽ gửi mail đến địa chỉ </strong><code><strong><span class="has-inline-color has-luminous-vivid-orange-color">recipient@abc.com</span></strong></code></p>
+
+
+
+<p><strong>Step 2: Email sẽ đến Mailgun và được mailgun xử lý </strong></p>
+
+
+
+<ul><li>Store email</li><li>Gửi thông báo đến 1 API endpoint(mình tạm đặt tên là <code><strong>processNotifyFromMailGun</strong></code> &#8211; step 3) có nhiệm vụ hứng notify từ Mailgun và tiếp tục xử lý</li></ul>
+
+
+
+<p><strong>Step 3: Xử lý nhận được notify từ Mailgun</strong></p>
+
+
+
+<ul><li>Tính toán attachment size, nếu lớn hơn <strong>25Mb</strong> thì gửi mail reject cho sender</li><li>Nếu pass được, tạo 1 SQS queue với các thông tin cần thiết như <strong><code><strong>message-url</strong>, <strong>from, to</strong>, <strong>subject</strong></code>, &#8230;</strong></li></ul>
+
+
+
+<p>Mục đích của <strong>Step 3</strong> là đảm bảo email không quá lớn và lợi dụng cơ chế retry của SQS để gửi lại nếu bị fail gì đó ở step này.</p>
+
+
+
+<p><strong>Step 4: Xử</strong> <strong>lý  message từ SQS và lưu nội dung email vào AWS S3 bucket</strong><br>Mình tạm đặt tên lambda này là <strong>processNotifySQSAndSaveEmailToS3. </strong>Nhiệm vụ chính của lambda này là xử lý message từ SQS ở step 3, download <code><strong>raw email</strong></code> từ mailgun về và upload lên AWS S3. (Tại sao lại là raw email mình sẽ giải thích ở step sau &lt;link&gt;)</p>
+
+
+
+<p><strong>Step 5: Các xử lý ở AWS S3 bucket </strong></p>
+
+
+
+<ul><li>Gửi message đến SQS ở <strong>Step 6</strong> khi 1 object được tạo trong bucket </li><li>Xoá object sau 14 ngày</li></ul>
+
+
+
+<p><strong>Step 6: SQS nhận notify từ AWS S3 bucket(Step 5)</strong><br>Ở step này, SQS sẽ nhận <strong>Event Notification </strong>từ AWS S3 bucket và trigger lambda gửi mail ở step sau.</p>
+
+
+
+<p><strong>Step 7: Gửi mail cho recipient</strong><br>Ở bước này, lambda <strong>processAndSendEmail</strong> sẽ được gọi, mục đích chính của lambda này là nhận message từ SQS (Step 6) và gửi mail cho <strong><code>recipient</code></strong> bằng cách sử dụng tài khoản SMTP.  Ở step này email sẽ bị reject <code><strong>recipient</strong></code> sẽ không nhận được email (vì mình đang mạo danh sender)</p>
+
+
+
+<p>Để giải quyết được vấn đề này Mailserver cần cho phép nhận những email mạo danh được gửi từ 1 tài khoản SMTP, ở đây mình dùng SMTP account: sender@&lt;domain.com></p>
+
+
+
+<h2 class="wp-block-heading"><strong>Các công nghệ sử dụng</strong></h2>
+
+
+
+<p>Các công nghệ được chọn vì những lý do sau:</p>
+
+
+
+<ul><li><strong>Mailgun</strong>: Mailgun có cơ chế chống spam/virus, retry khi lỗi, khả năng filter email và bộ API rất hữu dụng</li><li><strong>AWS SQS:</strong> Sử dụng đơn giản, cơ chế nhận message linh hoạt, retry, có thể integrate với các dịch vụ khác của AWS 1 cách dễ dàng, khả năng mở rộng tốt- điển hình là lambda và AWS S3.</li><li><strong>AWS S3</strong>: Có thể lưu được file nặng, có các event notification, lifecycle và các tính năng hữu ích khác. Khả năng mở rộng tốt.</li><li><strong>AWS Lambda</strong>: Có khả năng mở rộng rất tốt, không sợ bị chết hoặc &#8220;đơ&#8221; do có quá nhiều request cùng lúc.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Tạm kết:</h2>
+
+
+
+<p>Với một coder tay mơ như mình, đây là một requirement khá phức tạp, liên quan đến khá nhiều công nghệ và config.</p>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">Phần 1 &#8211; Giới thiệu và hướng dẫn cài đặt server mail với iRedmail-Pro</a></p>
+<div class="post-views content-post post-39 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">7</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

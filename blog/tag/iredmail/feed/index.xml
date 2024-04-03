@@ -1,0 +1,510 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>iRedMail &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/tag/iredmail/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sun, 24 Apr 2022 11:55:02 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>iRedMail &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</title>
+		<link>/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:54:59 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=58</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với iRedMail Table of contents Giới thiệu MailGun So sánh giữ MailGun và một số dịch vụ Mail khác Giới thiệu [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></p>
+
+
+
+<h2 class="wp-block-heading">Table of contents</h2>
+
+
+
+<ol><li>Giới thiệu MailGun</li><li>So sánh giữ MailGun và một số dịch vụ Mail khác</li><li>Giới thiệu một số chức năng của MailGun</li><li>Vì sao phải sử dụng MailGun trong Mail server của mình?</li><li>Tích hợp MailGun vào <a href="/blog/tag/iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li>Một số tích hợp khác để MailGun có thể hoạt động với <a href="/blog/tag/aws/">AWS</a></li><li>Kết Luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/(opens in a new tab)" target="_blank" rel="noreferrer noopener">Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết của mail server</a></p>
+<div class="post-views content-post post-58 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">12</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</title>
+		<link>/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Tue, 04 May 2021 16:04:44 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[iRedAdmin]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<guid isPermaLink="false">/?p=19</guid>
+
+					<description><![CDATA[<p>Như phần trước mình có giới thiệu, hôm nay mình sẽ hưỡng dẫn các bạn cài đặt iRedMail server. Table of content: Mail server là gì? Ưu điểm và nhược điểm khi tự setup mail server thay vì thuê Giới thiệu iRedMail và một số chức năng chính của iRedAdmin Cài đặt iRedMail trên ubuntu [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/">[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Như phần trước mình có giới thiệu, hôm nay mình sẽ hưỡng dẫn các bạn cài đặt iRedMail server.</p>
+
+
+
+<h2 class="wp-block-heading">Table of content:</h2>
+
+
+
+<ol><li><strong>Mail server là gì?</strong></li><li><strong>Ưu điểm và nhược điểm khi tự setup mail server thay vì thuê</strong></li><li><strong>Giới thiệu iRedMail và một số chức năng chính của iRedAdmin</strong></li><li><strong>Cài đặt iRedMail trên ubuntu AWS EC2</strong></li><li><strong>Sử dụng Mailgun để gửi và nhận mail</strong></li><li><strong>Kết luận</strong></li></ol>
+
+
+
+<p><strong>1.  Mail server là gì?<br></strong>Mail server hay server mail là một máy tính được cài một tập các chương trình với nhiệm vụ chính là quản lý email, gửi và nhận email.</p>
+
+
+
+<p>Mail server cho phép bạn tạo và quản lý các tài khoản email. Ví dụ: nếu bạn có hostname là <strong>thnkandgrow.com </strong>thì mail server có thể cung cấp email dưới dạng <strong>admin@thnkandgrow.com.</strong></p>
+
+
+
+<p><br>Mail server gửi và nhận email dựa trên các chuẩn giao thức email. Ví dụ: SMPT để gửi và xử lý các yêu cầu gửi email(outgoing email) và giao thức IMAP/POP3 dùng để xử lý các email nhận(incoming email). </p>
+
+
+
+<p><br>Khi login vào 1 webmail(ví dụ thunder bird, rubocube) thì những giao thức này được sử dụng phía sau.<br>Mail server có 2 loại: Email as a Service (EaaS) và Self-hosted email</p>
+
+
+
+<p><strong>2. Ưu điểm và nhược điểm khi tự setup mail server thay vì dùng EaaS</strong></p>
+
+
+
+<figure class="wp-block-table is-style-regular"><table><thead><tr><th>&#8211;</th><th>Ưu điểm</th><th>Nhược điểm</th></tr></thead><tbody><tr><td>Self-hosted email</td><td>&#8211; Thường dùng cho doanh nghiệp<br>&#8211; Giá cả hợp lý<br>&#8211; Có thể dễ dàng scale<br>&#8211; Đảm bảo tính riêng tư(tất cả các email đều được nằm trên server của chúng ta)</td><td>&#8211; Khó cài đặt<br>&#8211; Antivirus/spam nhiều lúc hoạt động không chính xác<br>&#8211; Thường bị mark spam email</td></tr><tr><td>Email as a Service</td><td>&#8211; Thường dùng cho cá nhân<br>&#8211; Dễ cài đặt và sử dụng<br>&#8211; Bảo mật<br>&#8211; Antivirus/spam tốt<br>&#8211; Thường support 24/7</td><td>&#8211; Giá khá cao và thường tính theo user/month<br>&#8211; Tính riêng tư không chắc được đảm bảo </td></tr></tbody></table><figcaption>pros and cons self-hosted email and EaaS</figcaption></figure>
+
+
+
+<p><strong>3. Giới thiệu iRedMail và một số chức năng chính của iRedAdmin</strong></p>
+
+
+
+<p>iRedMail được ra đời năm 2007, là 1 phần mềm mã nguồn mở, cho phép cài đặt trên các nền tảng phổ biến như RedHat, CentOS, Debian, Ubuntu, FreeBSD, OpenBSD.</p>
+
+
+
+<p>iRedMail đã được tích hợp tất cả những thành phần mã nguồn mở cùng nhau và áp dụng những phương pháp hay nhất, bạn chỉ cần chạy một vài script là có 1 mail server.</p>
+
+
+
+<p>Bạn có thể tìm hiểu thêm về iRedMail <a href="https://www.iredmail.org/index.html" target="_blank" rel="noreferrer noopener">tại đây</a> và một số chức năng của iRedAdmin tại <a href="https://www.iredmail.org/admin_panel.html">Features list of iRedAdmin-Pro</a>. &#8211; có thể sử dụng demo tại đây: <a href="https://www.iredmail.org/admin_demo.html" target="_blank" rel="noreferrer noopener">iRedAdmin-Pro demo</a></p>
+
+
+
+<p><strong>4. Cài đặt iRedMail trên ubuntu AWS EC2</strong></p>
+
+
+
+<p>Mình đã follow bài này để làm theo, 100% cài được <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> <a href="https://docs.iredmail.org/install.iredmail.on.debian.ubuntu.html">Install iRedMail Debian, Ubuntu</a></p>
+
+
+
+<p>Một số lưu ý khi cài đặt:</p>
+
+
+
+<p><strong>System Requirements</strong>: nên cài trên instance mới, sạch sẽ hoàn toàn.</p>
+
+
+
+<p> Để iRedMail hoạt động một cách trơn tru thì các bạn có thể tham khảo những port cần phải mở ở bài viết  document của iRedMail nhé: <a href="https://docs.iredmail.org/network.ports.html" target="_blank" rel="noreferrer noopener">Which network ports are open by iRedMail</a></p>
+
+
+
+<blockquote class="wp-block-quote"><p>iRedMail is designed to be deployed on a&nbsp;<strong>FRESH</strong>&nbsp;server system, which means your server does&nbsp;<strong>NOT</strong>&nbsp;have mail related components installed, e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc.&nbsp;</p></blockquote>
+
+
+
+<p>RAM: ít nhất 2Gb (nhỏ hơn, tạo swap cũng không chạy nỗi nha), tốt nhất là 4Gb.</p>
+
+
+
+<p><a href="https://geek-university.com/linux/uid-user-identifier-gid-group-identifier/">UID/GID</a>: Không sử dụng 2000, 20001, 2002</p>
+
+
+
+<p>VPS phải có khả năng mở port 25. Thông thường bạn phải viết mail xin phép mở port này.<br>=&gt;<strong> DigitalOcean không cho phép mở.</strong></p>
+
+
+
+<blockquote class="wp-block-quote"><p>Many ISPs block port 25 by default, it&#8217;s used for communication between mail servers, it must be open, otherwise your server may be not able to receive or / and send emails. Please contact your ISP to make sure it&#8217;s not blocked, or ask them to unblock.</p><p>&#8211; Amazon AWS EC2. Request to&nbsp;<a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.<br>&#8211; Google Cloud Platform.<br>&#8211; Microsoft Azure.<br>&#8211; Linode. Explained in the&nbsp;<a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>, you can open a support ticket to request the Linode team to open it. If you&nbsp;<a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a>, iRedMail Team&#8217;s Linode account will receive a credit of $15-20.00. Thanks.<br>&#8211; DigitalOcean. According to&nbsp;<a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">a post in their community</a>,&nbsp;<strong>SEEMS</strong>&nbsp;impossible to unblock port 25, that means you can&nbsp;<strong>NOT</strong>&nbsp;run mail server on DigitalOcean VPS.</p></blockquote>
+
+
+
+<p>Sau khi cài đặt xong bạn có thể mở file <code><strong>/root/iRedMail-x.y.z/iRedMail.tips</strong></code> để xem các thông tin của server.</p>
+
+
+
+<p><strong>Một số bước cần lưu ý sau khi setup thành công iRedMail:<br></strong>&#8211; <a href="https://docs.iredmail.org/setup.dns.html" target="_blank" rel="noreferrer noopener">Setup DNS record</a>. Tất nhiên rồi, nếu bạn không config DNS thì mail biết đi đâu, về đâu <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br>&#8211; <a href="https://docs.iredmail.org/letsencrypt.html" target="_blank" rel="noreferrer noopener">Cài đặt SSL certificate</a>. Nếu có SSL, bạn sẽ tránh khỏi những cảnh báo khi sử dụng web browser hoặc mail client truy cập mailbox. Đơn giản lắm. </p>
+
+
+
+<p><strong>5. Sử dụng Mailgun để gửi và nhận mail</strong></p>
+
+
+
+<p>Chúc mừng các bạn, cuối cùng chúng ta đã setup gần xong 1 Mail Server rồi, nhưng nó vẫn chưa gửi mail được. Các lý do bạn cần phải xem xét:</p>
+
+
+
+<ol><li>Đã mở được các port cần thiết chưa?</li><li>Đã xin phép để mở port <strong>25 </strong>chưa?</li></ol>
+
+
+
+<p>Nếu xin phép để mở port <strong>25 </strong>làm bạn quá tốn thời gian và sức lực, bạn có thể sử dụng <a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)" target="_blank" rel="noreferrer noopener">MailGun</a> như 1 bộ chuyển tiếp(relay) để gửi và nhận email.</p>
+
+
+
+<p>Tất nhiên là bạn cần có 1 tài khoản ở MailGun.com rồi, ghé vào <a href="https://signup.mailgun.com/new/signup">đây</a> để đăng ký nhé</p>
+
+
+
+<p>Các bước làm như sau:</p>
+
+
+
+<p><strong><em>Notice: </em></strong>Postfix installed by default when setup iRedMail</p>
+
+
+
+<p><strong>Step 1</strong>: SSH to iRedMail server</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>ssh &lt;your-user>@</strong>&lt;your-server-ip></pre>
+
+
+
+<p><strong>Step 2</strong>: &nbsp;Login to root user</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>sudo su</strong></pre>
+
+
+
+<p><strong>Step 3: </strong>Modify the Postfix configuration options.<br>Open postfix config:</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>vi /etc/postfix/main.cf</strong></pre>
+
+
+
+<blockquote class="wp-block-quote"><p>If they exist, comment out the following lines.</p></blockquote>
+
+
+
+<pre class="wp-block-preformatted"><strong># default_transport = error</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong># relay_transport = error</strong></pre>
+
+
+
+<p>Add the Mailgun SMTP service by adding the following line to<strong> the end of the file.</strong></p>
+
+
+
+<pre class="wp-block-preformatted"><strong>relayhost = [smtp.mailgun.org]:2525</strong></pre>
+
+
+
+<p>To enforce SSL/TLS support and configure SMTP authentication for these requests, add the following lines to the end of the file. A simple access and security layer (SASL) module handles authentication in the Postfix configuration.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_auth_enable = yes</strong> // nếu không gửi mail được có thể bạn đã setup cerrtificate sai. Chuyển sang No hoặc May hoặc nghiên cứu cài lại certificate.</pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_password_maps = hash:</strong><strong>/etc/</strong><strong>postfix/sasl_passwd</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_security_options = noanonymous</strong></pre>
+
+
+
+<p>Save your changes and close the file.<br><strong>Step 4: </strong>Generate the SASL password map.Create a new password file that is ready for standard input.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>cat &gt; /etc/postfix/sasl_passwd &lt;&lt; EOF</strong></pre>
+
+
+
+<p>At the prompt, enter the service details, replacing YOUR_SMTP_LOGIN and YOUR_SMTP_PASSWORD with your credentials. See the <a href="https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials">Mailgun help</a> for instructions on how to view or change your per-domain credentials.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>[smtp.mailgun.org]:2525 YOUR_SMTP_LOGIN:YOUR_SMTP_PASSWORD</strong></pre>
+
+
+
+<p>Close and save the file by typing the delimiter, EOF .<br>Use the postmap utility to generate a .db file.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>postmap /etc/postfix/sasl_passwd</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>ls -l /etc/postfix/sasl_passwd*</strong></pre>
+
+
+
+<pre class="wp-block-preformatted">-rw------- 1 root root &nbsp; 101 Apr &nbsp;5 08:04 /etc/postfix/sasl_passwd</pre>
+
+
+
+<pre class="wp-block-preformatted">-rw------- 1 root root 12288 Apr &nbsp;5 08:04 /etc/postfix/sasl_passwd.db</pre>
+
+
+
+<p>Next, remove the file that contains your credentials because it is no longer needed.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>rm /etc/postfix/sasl_passwd</strong></pre>
+
+
+
+<p>Set the permissions on your .db file.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>chmod 600 /etc/postfix/sasl_passwd.db</strong></pre>
+
+
+
+<p>Restart postfix</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>/etc/init.d/postfix restart</strong></pre>
+
+
+
+<p>Test your configuration. Install the <strong>mailx</strong> or <strong>mailutils</strong> package and test your configuration.</p>
+
+
+
+<p> <strong>6. Kết luận</strong></p>
+
+
+
+<p>Để setup được một self-hosted mail bạn cần phải học kha khá kiến thức mới về mail server, những ứng dụng đi kèm. Bên cạnh những ưu điểm của self-hosted mail thì bạn cũng cần phải xem xét những nhược điểm của nó trước khi đưa ra quyết định thuê EaaS hay Self-hosted mail nhé.</p>
+
+
+
+<p style="font-size:10px"><em>reference: </em><br>1. <em>https://techterms.com/definition/mail_server</em><br>2. https://www.iredmail.org/</p>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)" target="_blank" rel="noreferrer noopener">Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a></p>
+<div class="post-views content-post post-19 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">78</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/">[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Series hướng dẫn setup Server mail</title>
+		<link>/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 04 Apr 2021 15:40:19 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=39</guid>
+
+					<description><![CDATA[<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi và nhận mail. Kết hợp mailgun và một số công nghệ của AWS để lưu trữ incoming email.</p>
+<p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi/nhận mail và một số công nghệ của AWS để lưu trữ incoming email.</p>
+
+
+
+<p>Bài viết mang tính chất chia sẽ và lưu trữ kiến thức</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Yêu cầu bài toán &#8211; Flowchart</li><li>Các công nghệ sử dụng<ol><li><a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li><a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)">MailGun &#8211; Một nhà cung cấp SMTP miễn phí</a></li><li><a href="/?p=66" target="_blank" rel="noreferrer noopener">AWS Route53 và config DNS</a></li><li><a href="/blog/2021/04/04/tut-phan-4-aws-lambda-serverless-framework/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS Lambda &#8211; Serverless framework</a></li><li><a href="/blog/2021/04/04/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a></li></ol></li><li>Implemented code</li></ol>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-1 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<h1 class="wp-block-heading">Yêu cầu bài toán:</h1>
+
+
+
+<p>Khách hàng muốn có 1 con server mail riêng để gửi và nhận email và đề xuất  dùng iRedMail. Sau một số discuss thì khách hàng quyết định kết hợp với mailgun để tránh virus/spam.</p>
+
+
+
+<pre class="wp-block-code"><code>The dream goal would be for us to send and receive email through mailgun and we would use mailgun for virus / spam detection.</code></pre>
+
+
+
+<p>Các bạn có thể xem thêm flowchart để dễ hiểu requirement</p>
+
+
+
+<figure class="wp-block-image size-large is-resized is-style-default"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/04/image-1024x608.png" alt="Flowchart " class="wp-image-40" width="780" height="463" srcset="/wp-content/uploads/2021/04/image-1024x608.png 1024w, /wp-content/uploads/2021/04/image-300x178.png 300w, /wp-content/uploads/2021/04/image-768x456.png 768w, /wp-content/uploads/2021/04/image-1536x912.png 1536w, /wp-content/uploads/2021/04/image-2048x1216.png 2048w" sizes="(max-width: 780px) 100vw, 780px" /><figcaption>Flowchart </figcaption></figure>
+
+
+
+<p>Giải thích sơ bộ flowchart 1 chút nhé.</p>
+
+
+
+<p><strong>Step1: Người gửi mail(sender) sẽ gửi mail đến địa chỉ </strong><code><strong><span class="has-inline-color has-luminous-vivid-orange-color">recipient@abc.com</span></strong></code></p>
+
+
+
+<p><strong>Step 2: Email sẽ đến Mailgun và được mailgun xử lý </strong></p>
+
+
+
+<ul><li>Store email</li><li>Gửi thông báo đến 1 API endpoint(mình tạm đặt tên là <code><strong>processNotifyFromMailGun</strong></code> &#8211; step 3) có nhiệm vụ hứng notify từ Mailgun và tiếp tục xử lý</li></ul>
+
+
+
+<p><strong>Step 3: Xử lý nhận được notify từ Mailgun</strong></p>
+
+
+
+<ul><li>Tính toán attachment size, nếu lớn hơn <strong>25Mb</strong> thì gửi mail reject cho sender</li><li>Nếu pass được, tạo 1 SQS queue với các thông tin cần thiết như <strong><code><strong>message-url</strong>, <strong>from, to</strong>, <strong>subject</strong></code>, &#8230;</strong></li></ul>
+
+
+
+<p>Mục đích của <strong>Step 3</strong> là đảm bảo email không quá lớn và lợi dụng cơ chế retry của SQS để gửi lại nếu bị fail gì đó ở step này.</p>
+
+
+
+<p><strong>Step 4: Xử</strong> <strong>lý  message từ SQS và lưu nội dung email vào AWS S3 bucket</strong><br>Mình tạm đặt tên lambda này là <strong>processNotifySQSAndSaveEmailToS3. </strong>Nhiệm vụ chính của lambda này là xử lý message từ SQS ở step 3, download <code><strong>raw email</strong></code> từ mailgun về và upload lên AWS S3. (Tại sao lại là raw email mình sẽ giải thích ở step sau &lt;link&gt;)</p>
+
+
+
+<p><strong>Step 5: Các xử lý ở AWS S3 bucket </strong></p>
+
+
+
+<ul><li>Gửi message đến SQS ở <strong>Step 6</strong> khi 1 object được tạo trong bucket </li><li>Xoá object sau 14 ngày</li></ul>
+
+
+
+<p><strong>Step 6: SQS nhận notify từ AWS S3 bucket(Step 5)</strong><br>Ở step này, SQS sẽ nhận <strong>Event Notification </strong>từ AWS S3 bucket và trigger lambda gửi mail ở step sau.</p>
+
+
+
+<p><strong>Step 7: Gửi mail cho recipient</strong><br>Ở bước này, lambda <strong>processAndSendEmail</strong> sẽ được gọi, mục đích chính của lambda này là nhận message từ SQS (Step 6) và gửi mail cho <strong><code>recipient</code></strong> bằng cách sử dụng tài khoản SMTP.  Ở step này email sẽ bị reject <code><strong>recipient</strong></code> sẽ không nhận được email (vì mình đang mạo danh sender)</p>
+
+
+
+<p>Để giải quyết được vấn đề này Mailserver cần cho phép nhận những email mạo danh được gửi từ 1 tài khoản SMTP, ở đây mình dùng SMTP account: sender@&lt;domain.com></p>
+
+
+
+<h2 class="wp-block-heading"><strong>Các công nghệ sử dụng</strong></h2>
+
+
+
+<p>Các công nghệ được chọn vì những lý do sau:</p>
+
+
+
+<ul><li><strong>Mailgun</strong>: Mailgun có cơ chế chống spam/virus, retry khi lỗi, khả năng filter email và bộ API rất hữu dụng</li><li><strong>AWS SQS:</strong> Sử dụng đơn giản, cơ chế nhận message linh hoạt, retry, có thể integrate với các dịch vụ khác của AWS 1 cách dễ dàng, khả năng mở rộng tốt- điển hình là lambda và AWS S3.</li><li><strong>AWS S3</strong>: Có thể lưu được file nặng, có các event notification, lifecycle và các tính năng hữu ích khác. Khả năng mở rộng tốt.</li><li><strong>AWS Lambda</strong>: Có khả năng mở rộng rất tốt, không sợ bị chết hoặc &#8220;đơ&#8221; do có quá nhiều request cùng lúc.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Tạm kết:</h2>
+
+
+
+<p>Với một coder tay mơ như mình, đây là một requirement khá phức tạp, liên quan đến khá nhiều công nghệ và config.</p>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">Phần 1 &#8211; Giới thiệu và hướng dẫn cài đặt server mail với iRedmail-Pro</a></p>
+<div class="post-views content-post post-39 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">7</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

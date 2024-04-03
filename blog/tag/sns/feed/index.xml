@@ -1,0 +1,75 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>SNS &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/tag/sns/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sun, 24 Apr 2022 13:05:03 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>SNS &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</title>
+		<link>/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:56:01 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Amazon Simple Notification Service]]></category>
+		<category><![CDATA[Amazon Simple Queue Service]]></category>
+		<category><![CDATA[Amazon Simple Storage Service]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS SNS]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[S3]]></category>
+		<category><![CDATA[S3 Event Notification]]></category>
+		<category><![CDATA[SNS]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=79</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server Table of contents: Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản Giới thiệu Amazon Simple Notification Service [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản </li><li>Giới thiệu Amazon Simple Notification Service &#8211; SNS và một số tính năng cơ bản</li><li>Giới thiệu Amazon Simple Storage Service &#8211; S3 và một số tính năng cơ bản</li><li>Nhiệm vụ của SQS và S3 trong Mail server và cách config để hoạt động với AWS lambda</li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+<div class="post-views content-post post-79 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

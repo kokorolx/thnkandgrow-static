@@ -1,0 +1,1487 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>AWS &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/tag/aws/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sat, 13 May 2023 15:36:23 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>AWS &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Understanding User Scripts When Launching EC2 Instances</title>
+		<link>/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sat, 13 May 2023 15:36:23 +0000</pubDate>
+				<category><![CDATA[AWS]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Tips]]></category>
+		<guid isPermaLink="false">/?p=359</guid>
+
+					<description><![CDATA[<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we will discuss user scripts in more detail and how they can be used to automate instance configuration and management tasks.</p>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading">What are User Scripts?</h2>
+
+
+
+<p>User scripts are scripts that are executed when an EC2 instance is launched. They can be written in any scripting language, including bash, Python, or PowerShell, and are passed to the instance during launch as part of the instance metadata. User scripts can be used to perform various tasks, such as installing software, configuring the instance, and running custom scripts.</p>
+
+
+
+<h2 class="wp-block-heading">Why Use User Scripts?</h2>
+
+
+
+<p>User scripts can be used to automate the process of launching and configuring EC2 instances. This can save time and reduce the chance of errors when configuring instances manually. For example, you can use user scripts to automatically install and configure web servers, databases, or other software on the instance. User scripts can also be used to customize instances based on your specific needs, such as setting up a specific directory structure or configuring the network settings.</p>
+
+
+
+<h2 class="wp-block-heading">How to Use User Scripts?</h2>
+
+
+
+<p>To use a user script when launching an EC2 instance, you can provide the script as part of the instance&#8217;s user data. This can be done through the EC2 console, API, or command-line interface. When the instance is launched, the user script will be passed to the instance and executed automatically.</p>
+
+
+
+<p>It&#8217;s important to note that user scripts should be idempotent, meaning that they should be able to be executed multiple times without causing issues. This is because EC2 instances can be stopped and started multiple times during their lifetime, and the user script will be executed each time the instance is launched.</p>
+
+
+
+<p>Example user script to deploy Rails app with redis, nodejs, ruby installed with rvm, postgresql and puma config for nginx (for <strong>ubuntu</strong>)</p>
+
+
+
+<pre class="wp-block-code"><code>#!/bin/bash
+sudo apt-get update
+sudo apt-get -y install build-essential libssl-dev libreadline-dev zlib1g-dev git
+sudo apt-get -y install libpq-dev postgresql postgresql-contrib
+sudo apt-get -y install redis-server
+sudo apt-get -y install nodejs
+sudo apt-get -y install nginx
+
+# Install RVM and Ruby
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get -y install rvm
+source /etc/profile.d/rvm.sh
+rvm install 2.7.4
+rvm use 2.7.4 --default
+
+# Install Bundler
+gem install bundler
+
+# Configure PostgreSQL
+sudo -u postgres createuser --superuser ubuntu
+sudo -u postgres createdb -O ubuntu myapp_production
+
+# Configure Nginx
+sudo rm /etc/nginx/sites-enabled/default
+sudo touch /etc/nginx/sites-available/myapp
+sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
+sudo bash -c "cat > /etc/nginx/sites-available/myapp" &lt;&lt;EOF
+upstream myapp {
+  server unix:///var/www/myapp/myapp.sock;
+}
+
+server {
+  listen 80;
+  server_name myapp.com;
+
+  root /var/www/myapp/public;
+
+  try_files \$uri/index.html \$uri @myapp;
+
+  location @myapp {
+    proxy_pass http://myapp;/
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_http_version 1.1;
+    proxy_set_header Connection '';
+    chunked_transfer_encoding off;
+    proxy_cache_bypass \$http_pragma;
+    proxy_cache_revalidate on;
+    proxy_cache_valid 200 5m;
+    expires 5m;
+  }
+}
+EOF
+
+sudo service nginx restart
+</code></pre>
+
+
+
+<p>When the instance is booted for the first time, this script will run and the output will be in the <code>/var/log/cloud-init-output.log</code> directory on your instance.</p>
+
+
+
+<h2 class="wp-block-heading">Best Practices for Using User Scripts</h2>
+
+
+
+<p>When using user scripts, there are some best practices to follow to ensure that they are effective and reliable:</p>
+
+
+
+<ol><li>Use version control: User scripts should be stored in a version control system, such as Git, to ensure that they can be easily tracked and modified over time.</li><li>Test your scripts: Before using user scripts in production, they should be thoroughly tested to ensure that they work as expected.</li><li>Keep scripts simple: User scripts should be simple and easy to read, to avoid potential issues when troubleshooting.</li><li>Use cloud-init: Cloud-init is a tool that can be used to configure and customize instances when they are launched. It can be used to install packages, run scripts, and set up users and SSH keys.</li><li>Use pre-built scripts: There are many pre-built scripts available online that can be used as a starting point for configuring instances. These can save time and reduce the risk of errors when writing user scripts from scratch.</li></ol>
+
+
+
+<h2 class="wp-block-heading">Conclusion</h2>
+
+
+
+<p>User scripts are a powerful tool for automating the process of launching and configuring EC2 instances. By providing a script during instance launch, users can automate the installation and configuration of software, customize instances to their specific needs, save time, and reduce the risk of errors when configuring instances manually. By following best practices for using user scripts, such as testing scripts and keeping them simple, users can ensure that their instances are configured reliably and effectively.</p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p>Notion: https://www.notion.so/hoangtamle/Deploy-rails-to-AWS-47d46f0310e54ebcb9b0c11e6b262b49?pvs=4</p>
+<div class="post-views content-post post-359 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</title>
+		<link>/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:56:01 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Amazon Simple Notification Service]]></category>
+		<category><![CDATA[Amazon Simple Queue Service]]></category>
+		<category><![CDATA[Amazon Simple Storage Service]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS SNS]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[S3]]></category>
+		<category><![CDATA[S3 Event Notification]]></category>
+		<category><![CDATA[SNS]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=79</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server Table of contents: Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản Giới thiệu Amazon Simple Notification Service [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản </li><li>Giới thiệu Amazon Simple Notification Service &#8211; SNS và một số tính năng cơ bản</li><li>Giới thiệu Amazon Simple Storage Service &#8211; S3 và một số tính năng cơ bản</li><li>Nhiệm vụ của SQS và S3 trong Mail server và cách config để hoạt động với AWS lambda</li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+<div class="post-views content-post post-79 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</title>
+		<link>/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:55:36 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS S3]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[Google Clond Function]]></category>
+		<category><![CDATA[iRdMail]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=73</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework. Table of contents: Giới thiệu serverless architecture và serverless framework Giới thiệu AWS Lambda So sánh AWS Lambda với Google Cloud Functions Nhiệm vụ của AWS Lambda trong hệ thống Lambda nhận notify từ MailGun [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework.</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu serverless architecture và serverless framework</li><li>Giới thiệu AWS Lambda</li><li>So sánh AWS Lambda với Google Cloud Functions </li><li>Nhiệm vụ của AWS Lambda trong hệ thống<ol><li>Lambda nhận notify từ MailGun</li><li>Lambda nhận notify từ SQS để upload <code>Raw email</code> lên AWS S3</li><li>Lambda nhận notify từ AWS S3 để download và gửi mail đến iRedMail</li></ol></li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-5---gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)">Phần 5 &#8211; Giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ </a>trong Mail server</p>
+<div class="post-views content-post post-73 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">21</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</title>
+		<link>/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:55:07 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[DKIM record]]></category>
+		<category><![CDATA[DMARC record]]></category>
+		<category><![CDATA[DNS Record]]></category>
+		<category><![CDATA[Route53]]></category>
+		<category><![CDATA[SPF record]]></category>
+		<guid isPermaLink="false">/?p=66</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về AWS Route53 và các DNS cần thiết cho mail server Table of contents: Giới thiệu AWS Route53 Giới thiệu các DNS record cần thiết MX record SPF record DKIM record DMARC record Config Sending/Receiving và Tracking records của MailGun Cách [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/">[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về AWS Route53 và các DNS cần thiết cho mail server</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu AWS Route53</li><li>Giới thiệu các DNS record cần thiết<ol><li>MX record</li><li>SPF record</li><li>DKIM record</li><li>DMARC record</li></ol></li><li>Config Sending/Receiving và Tracking records của <a href="/blog/tag/mailgun/" target="_blank" rel="noreferrer noopener">MailGun</a></li><li>Cách lấy DKIM/DMARC record từ iRedMail server và config Route53</li><li>Một số lưu ý khi config DNS record</li><li>Kết Luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/?p=73" target="_blank" rel="noreferrer noopener">Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a></p>
+<div class="post-views content-post post-66 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">39</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/">[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Những công nghệ mà pinterest đã/đang dùng(2013)</title>
+		<link>/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 26 Sep 2021 04:51:44 +0000</pubDate>
+				<category><![CDATA[Architecture]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[architecture]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[Clustering Vs Sharding]]></category>
+		<category><![CDATA[Lessons Learned]]></category>
+		<category><![CDATA[memcache]]></category>
+		<category><![CDATA[pinterest]]></category>
+		<category><![CDATA[redis]]></category>
+		<category><![CDATA[solr]]></category>
+		<guid isPermaLink="false">/?p=244</guid>
+
+					<description><![CDATA[<p>Why Amazon EC2/S3? Pretty good reliability. Datacenters go down too. Multitenancy adds some risk, but it’s not bad. Good reporting and support. They have really good architects and they know the problems Nice peripherals, especially when you are growing. You can spin up in App Engine and talk to their managed cache, load balancing, map [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/">Những công nghệ mà pinterest đã/đang dùng(2013)</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">Why Amazon EC2/S3?</h2>
+
+
+
+<div class="wp-block-image is-style-rounded"><figure class="aligncenter size-large is-resized"><img fetchpriority="high" decoding="async" src="/wp-content/uploads/2021/09/aws-logo-1024x538.png" alt="" class="wp-image-245" width="400" height="185"/><figcaption>AWS</figcaption></figure></div>
+
+
+
+<ul><li>Pretty good reliability. Datacenters go down too. Multitenancy adds some risk, but it’s not bad.</li><li>Good reporting and support. They have really good architects and they know the problems</li><li>Nice peripherals, especially when you are growing. You can spin up in App Engine and talk to their managed cache, load balancing, map reduce, managed databases, and all the other parts that you don’t have to write yourself. You can bootstrap on Amazon’s services and then evolve them when you have the engineers.</li><li>New instances available in seconds. The power of the cloud. Especially with two engineers you don’t have to worry about capacity planning or wait two weeks to get your memcache. 10 memcaches can be added in a matter of minutes.</li><li>Cons: limited choice. Until recently you could get SSDs and you can’t get large RAM configurations.</li><li>Pros: limited choice. You don’t end up with a lot of boxes with different configurations.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why MySQL?</h2>
+
+
+
+<div class="wp-block-image is-style-rounded"><figure class="aligncenter size-large is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1024x575.png" alt="" class="wp-image-247" width="400" height="-344" srcset="/wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1024x575.png 1024w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-300x169.png 300w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-768x432.png 768w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1536x863.png 1536w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-500x281.png 500w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-800x450.png 800w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971-1280x719.png 1280w, /wp-content/uploads/2021/09/mysql-1-1600340047538868003500-crop-160034079526453914971.png 1600w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>Mysql</figcaption></figure></div>
+
+
+
+<ul><li>Really mature.</li><li>Very solid. It’s never gone down for them and it’s never lost data.</li><li>You can hire for it. A lot of engineers know MySQL.</li><li>Response time to request rate increases linearly. Some technologies don’t respond as well when the request rate spikes.</li><li>Very good software support &#8211; XtraBackup, Innotop, Maatkit</li><li>Great community. Getting questions answered is easy.</li><li>Very good support from companies like Percona.</li><li>Free &#8211; important when you don’t have any funding initially.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why Memcache?</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/download.jpeg" alt="" class="wp-image-248" width="400" height="193"/><figcaption>memcache</figcaption></figure></div>
+
+
+
+<ul><li>Very mature.</li><li>Really simple. It’s a hashtable with a socket jammed in.</li><li>Consistently good performance</li><li>Well known and liked.</li><li>Consistently good performance.</li><li>Never crashes.</li><li>Free</li></ul>
+
+
+
+<h2 class="wp-block-heading">Why Redis?</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/Redis_Logo.svg_-1-1024x342.png" alt="" class="wp-image-250" width="400" srcset="/wp-content/uploads/2021/09/Redis_Logo.svg_-1-1024x342.png 1024w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-300x100.png 300w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-768x257.png 768w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-500x167.png 500w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1-800x268.png 800w, /wp-content/uploads/2021/09/Redis_Logo.svg_-1.png 1280w" sizes="(max-width: 1024px) 100vw, 1024px" /><figcaption>redis</figcaption></figure></div>
+
+
+
+<ul><li>Not mature, but it’s really good and pretty simple.</li><li>Provides a variety of data structures.</li><li>Has persistence and replication, with selectability on how you want them implemented. If you want MySQL style persistence you can have it. If you want no persistence you can have it. Or if you want 3 hour persistence you can have it.<ul><li>Your home feed is on Redis and is saved every 3 hours. There’s no 3 hour replication. They just backup every 3 hours.</li><li>If the box your data is stored on dies, then they just backup a few hours. It’s not perfectly reliable, but it is simpler. You don’t need complicated persistence and replication. It’s a lot simpler and cheaper architecture.</li></ul></li><li>Well known and liked.</li><li>Consistently good performance.</li><li>Few failure modes. Has a few subtle failure modes that you need to learn about. This is where maturity comes in. Just learn them and get past it.</li><li>Free</li></ul>
+
+
+
+<h2 class="wp-block-heading">Solr</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img decoding="async" src="/wp-content/uploads/2021/09/download.png" alt="" class="wp-image-251" width="400" height="267"/><figcaption>Search engine</figcaption></figure></div>
+
+
+
+<ul><li>A great get up and go type product. Install it and a few minutes later you are indexing.</li><li>Doesn’t scale past one box. (not so with latest release)</li><li>Tried Elastic Search, but at their scale it had trouble with lots of tiny documents and lots of queries.</li><li>Now using Websolr. But they have a search team and will roll their own.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Clustering Vs Sharding</h2>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-full is-resized"><img loading="lazy" decoding="async" src="/wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the.png" alt="Clustering Vs Sharding" class="wp-image-252" width="850" height="177" srcset="/wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the.png 850w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-300x62.png 300w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-768x160.png 768w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-500x104.png 500w, /wp-content/uploads/2021/09/The-sharding-technology-partitions-the-network-into-different-groups-while-each-of-the-800x167.png 800w" sizes="(max-width: 850px) 100vw, 850px" /><figcaption><meta charset="utf-8">Clustering Vs Sharding</figcaption></figure></div>
+
+
+
+<ul><li>During rapid growth they realized they were going to need to spread their data evenly to handle the ever increasing load.</li><li>Defined a spectrum to talk about the problem and they came up with a range of options between Clustering and Sharding.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Clustering &#8211; <strong>Everything Is Automatic</strong>:</h3>
+
+
+
+<ul><li>Examples: Cassandra, MemBase, HBase</li><li>Verdict: too scary, maybe in the future, but for now it’s too complicated and has way too many failure modes.</li><li>Properties:<ul><li>Data distributed automatically</li><li>Data can move</li><li>Rebalance to distribute capacity</li><li>Nodes communicate with each other. <strong>A lot of crosstalk, gossiping and negotiation.</strong></li></ul></li><li>Pros:<ul><li>Automatically scale your datastore. That’s what the white papers say at least.</li><li>Easy to setup.</li><li>Spatially distribute and colocate your data. You can have datacenter in different regions and the database takes care of it.</li><li>High availability</li><li>Load balancing</li><li>No single point of failure</li></ul></li><li>Cons (from first hand experience):<ul><li>Still fairly young.<strong>(the origin blog wrote from 2013, now is 2021)</strong></li><li>Fundamentally complicated. A whole bunch nodes have to symmetrical agreement, which is a hard problem to solve in production.</li><li>Less community support. There’s a split in the community along different product lines so there’s less support in each camp.</li><li>Fewer engineers with working knowledge. Probably most engineers have not used Cassandra.</li><li>Difficult and scary upgrade mechanisms. Could be related to they all use an API and talk amongst themselves so you don’t want them to be confused. This leads to complicated upgrade paths.</li><li>Cluster Management Algorithm is a SPOF. If there’s a bug it impacts every node. This took them down 4 times.</li><li>Cluster Managers are complex code replicated over all nodes that have the following failure modes:<ul><li>Data rebalance breaks. Bring a new box and data starts replicating and then it gets stuck. What do you do? There aren’t tools to figure out what’s going on. There’s no community to help, so they were stuck. They reverted back to MySQL.</li><li>Data corruption across all nodes. What if there’s a bug that sprays badness into the write log across all of them and compaction or some other mechanism stops? Your read latencies increase. All your data is screwed and the data is gone.</li><li>Improper balancing that cannot be easily fixed. Very common. You have 10 nodes and you notice all the node is on one node. There’s a manual process, but it redistributes the load back to one node.</li><li>Data authority failure. Clustering schemes are very smart. In one case they bring in a new secondary. At about 80% the secondary says it’s primary and the primary goes to secondary and you’ve lost 20% of the data. Losing 20% of the data is worse than losing all of it because you don’t know what you’ve lost.</li></ul></li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Sharding &#8211; <strong>Everything Is Manual</strong>:</h3>
+
+
+
+<ul><li>Verdict: It’s the winner. Note, I think their sharding architecture has a lot in common with&nbsp;<a href="http://highscalability.com/blog/2007/11/13/flickr-architecture.html">Flickr Architecture</a>.</li><li>Properties:<ul><li>Get rid of all the properties of clustering that you don’t like and you get sharding.</li><li>Data distributed manually</li><li>Data does not move. They don’t ever move data, though some people do, which puts them higher on the spectrum.</li><li>Split data to distribute load.</li><li>Nodes are not aware of each other. Some master node controls everything.</li></ul></li><li>Pros:<ul><li>Can split your database to add more capacity.</li><li>Spatially distribute and collocate your data</li><li>High availability</li><li>Load balancing</li><li>Algorithm for placing data is very simple. The main reason. Has a <a href="https://en.wikipedia.org/wiki/Single_point_of_failure" target="_blank" rel="noreferrer noopener nofollow">SPOF</a>, but it’s half a page of code rather than a very complicated Cluster Manager. After the first day it will work or won’t work.</li><li>ID generation is simplistic.</li></ul></li><li>Cons:<ul><li>Can’t perform most joins.</li><li>Lost all transaction capabilities. A write to one database may fail when a write to another succeeds.</li><li>Many constraints must be moved to the application layer.</li><li>Schema changes require more planning.</li><li>Reports require running queries on all shards and then perform all the aggregation yourself.</li><li>Joins are performed in the application layer.</li><li>Your application must be tolerant to all these issues.</li></ul></li></ul>
+
+
+
+<h2 class="wp-block-heading"><strong>When To Shard?</strong></h2>
+
+
+
+<ul><li>If your project will have a few TBs of data then you should shard as soon as possible.</li><li>When the Pin table went to a billion rows the indexes ran out of memory and they were swapping to disk.</li><li>They picked the largest table and put it in its own database.</li><li>Then they ran out of space on the single database.</li><li>Then they had to shard.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Transition To Sharding</h3>
+
+
+
+<ul><li>Started the transition process with a feature freeze.</li><li>Then they decided how they wanted to shard. Want to perform the least amount of queries and go to least number of databases to render a single page.</li><li>Removed all MySQL joins. Since the tables could be loaded into separate partitions joins would not work.</li><li>Added a ton of cache. Basically every query has to be cached.</li><li>The steps looked like:<ul><li>1 DB + Foreign Keys + Joins</li><li>1 DB + Denormalized + Cache</li><li>1 DB + Read Slaves + Cache</li><li>Several functionally sharded DBs + Read slaves + Cache</li><li>ID sharded DBs + Backup slaves + cache</li></ul></li><li>Earlier read slaves became a problem because of slave lag. A read would go to the slave and the master hadn’t replicated the record yet, so it looked like a record was missing. Getting around that require cache.</li><li>They have background scripts that duplicate what the database used to do. Check for integrity constraints, references.</li><li>User table is unsharded. They just use a big database and have a uniqueness constraint on user name and email. Inserting a User will fail if it isn’t unique. Then they do a lot of writes in their sharded database.</li></ul>
+
+
+
+<h3 class="wp-block-heading">How To Shard?</h3>
+
+
+
+<ul><li>Looked at <a href="https://cassandra.apache.org/_/index.html" target="_blank" rel="noreferrer noopener nofollow">Cassandra’s ring model</a>. Looked at <a href="https://www.couchbase.com/press-releases/membase-general-availability" target="_blank" rel="noreferrer noopener nofollow">Membase</a>. And looked at <a href="https://blog.twitter.com/engineering/en_us/a/2010/introducing-gizzard-a-framework-for-creating-distributed-datastores" target="_blank" rel="noreferrer noopener nofollow">Twitter’s Gizzard</a>.</li><li>Determined: the least data you move across your nodes the more stable your architecture.</li><li>Cassandra has a data balancing and authority problems because the nodes weren’t sure of who owned which part of the data. They decided the application should decide where the data should go so there is never an issue.</li><li>Projected their growth out for the next five years and presharded with that capacity plan in mind.</li><li>Initially created a lot of virtual shards. 8 physical servers, each with 512 DBs. All the databases have all the tables.</li><li>For high availability they always run in multi-master replication mode. Each master is assigned to a different availability zone. On failure the switch to the other master and bring in a new replacement node.</li><li>When load increasing on a database:<ul><li>Look at code commits to see if a new feature, caching issue, or other problem occurred.</li><li>If it’s just a load increase they split the database and tell the applications to find the data on a new host.</li><li>Before splitting the database they start slaves for those masters. Then they swap application code with the new database assignments. In the few minutes during the transition writes are still write to old nodes and be replicated to the new nodes. Then the pipe is cut between the nodes.</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">ID Structure</h3>
+
+
+
+<ul><li>64 bits:<ul><li>shard ID: 16 bits</li><li>type : 10 bits &#8211; Pin, Board, User, or any other object type</li><li>local ID &#8211; rest of the bits for the ID within the table. Uses MySQL auto increment.</li></ul></li><li>Twitter uses a mapping table to map IDs to a physical host. Which requires a lookup. Since Pinterest is on AWS and MySQL queries took about 3ms, they decided this extra level of indirection would not work. They build the location into the ID.</li><li>New users are randomly distributed across shards.</li><li>All data (pins, boards, etc) for a user is collocated on the same shard. Huge advantage. Rendering a user profile, for example, does not take multiple cross shard queries. It’s fast.</li><li>Every board is collocated with the user so boards can be rendered from one database.</li><li>Enough shards IDs for 65536 shards, but they only opened 4096 at first, they’ll expand horizontally. When the user database gets full they’ll open up more shards and allow new users to go to the new shards.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Lookups</h3>
+
+
+
+<ul><li>If they have 50 lookups, for example, they split the IDs and run all the queries in parallel so the latency is the longest wait.</li><li>Every application has a configuration file that maps a shard range to a physical host.<ul><li>“sharddb001a”: : (1, 512)</li><li>“sharddb001b”: : (513, 1024) &#8211; backup hot master</li></ul></li><li>If you want to look up a User whose ID falls into sharddb003a:<ul><li>Decompose the ID into its parts</li><li>Perform the lookup in the shard map</li><li>Connect to the shard, go to the database for the type, and use the local ID to find the right user and return the serialized data.</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Objects And Mappings</h3>
+
+
+
+<ul><li>All data is either an object (pin, board, user, comment) or a mapping (user has boards, pins has likes).</li><li>For objects a Local ID maps to a MySQL blob. The blob format started with JSON but is moving to serialized thrift.</li><li>For mappings there’s a mapping table. &nbsp;You can ask for all the boards for a user. The IDs contain a timestamp so you can see the order of events.<ul><li>There’s a reverse mapping, many to many table, to answer queries of the type give me all the users who like this pin.</li><li>Schema naming scheme is noun_verb_noun: user_likes_pins, pins_like_user.</li></ul></li><li>Queries are primary key or index lookups (no joins).</li><li>Data doesn’t move across database as it does with clustering. Once a user lands on shard 20, for example, and all the user data is collocated, it will never move. The 64 bit ID has contains the shard ID so it can’t be moved. You can move the physical data to another database, but it’s still associated with the same shard.</li><li>All tables exist on all shards. No special shards, not counting the huge user table that is used to detect user name conflicts.</li><li>No schema changes required and a new index requires a new table.<ul><li>Since the value for a key is a blob, you can add fields without destroying the schema. There’s versioning on each blob so applications will detect the version number and change the record to the new format and write it back. All the data doesn’t need to change at once, it will be upgraded on reads.</li><li>Huge win because altering a table takes a lock for hours or days. &nbsp;If you want a new index you just create a new table and start populating it. When you don’t want it anymore just drop it. (no mention of how these updates are transaction safe).</li></ul></li></ul>
+
+
+
+<h3 class="wp-block-heading">Rendering A User Profile Page</h3>
+
+
+
+<ul><li>Get the user name from the URL. Go to the single huge database to find the user ID.</li><li>Take the user ID and split it into its component parts.</li><li>Select the shard and go to that shard.</li><li>SELECT body from users WHERE id = &lt;local_user_id&gt;</li><li>SELECT board_id FROM user_has_boards WHERE user_id=&lt;user_id&gt;</li><li>SELECT body FROM boards WHERE id IN (&lt;boards_ids&gt;)</li><li>SELECT pin_id FROM board_has_pins WHERE board_id=&lt;board_id&gt;</li><li>SELECT body FROM pins WHERE id IN (pin_ids)</li><li>Most of the calls are served from cache (memcache or redis), so it’s not a lot of database queries in practice.</li></ul>
+
+
+
+<h3 class="wp-block-heading">Scripting</h3>
+
+
+
+<ul><li>When moving to a sharded architecture you have two different infrastructures, one old, the unsharded system, and one new, the sharded system. Scripting is all the code to transfer the old stuff to the new stuff.</li><li>They moved 500 million pins and 1.6 billion follower rows, etc</li><li>Underestimated this portion of the project. They thought it would take 2 months to put data in the shards, it actually took 4-5 months. And remember, this was during a feature freeze.</li><li>Applications must always write to both old and new infrastructures.</li><li>Once confident that all your data is in the new infrastructure then point your reads to the new infrastructure and slowly increase the load and test your backends.</li><li>Built a scripting farm. Spin up more workers to complete the task faster. They would do tasks like move these tables over to the new infrastructure.</li><li>Hacked up a copy of <a href="https://github.com/binarymatt/pyres" target="_blank" rel="noreferrer noopener nofollow">Pyres</a>, a Python interface to Github’s Resque queue, a queue on built on top of redis. Supports priorities and retries. It was so good they replaced Celery and RabbitMQ with Pyres.</li><li>A lot of mistakes in the process. Users found errors like missing boards. Had to run the process several times to make sure no transitory errors prevented data from being moved correctly.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Development</h2>
+
+
+
+<ul><li>Initially tried to give developers a slice of the system. Each having their own MySQL server, etc, but things changed so fast this didn’t work.</li><li>Went to Facebook’s model where everyone has access to everything. So you have to be really careful.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Future Directions</h2>
+
+
+
+<ul><li>Service based architecture.<ul><li>As they are starting to see a lot of database load they start to spawn a lot of app servers and a bunch of other servers. All these servers connect to MySQL and memcache. This means there are 30K connections on memcache which takes up a couple of gig of RAM and causes the memcache daemons to swap.</li><li>As a fix these are moving to a service architecture. There’s a follower service, for example, that will only answer follower queries. This isolates the number of machines to 30 that access the database and cache, thus reducing the number of connections.</li><li>Helps isolate functionality. Helps organize teams around around services and support for those services. Helps with security as developer can’t access other services.</li></ul></li></ul>
+
+
+
+<h2 class="wp-block-heading">Lessons Learned</h2>
+
+
+
+<ul><li>It will fail. Keep it simple.</li><li>Keep it fun. There’s a lot of new people joining the team. If you just give them a huge complex system it won’t be fun. Keeping the architecture simple has been a big win. New engineers have been contributing code from week one.</li><li>When you push something to the limit all these technologies fail in their own special way.</li><li>Architecture is doing the right thing when growth can be handled by adding more of the same stuff. You want to be able to scale by throwing money at the problem by throwing more boxes at the problem as you need them. If your architecture can do that, then you’re golden.</li></ul>
+
+
+
+<ul><li>Cluster Management Algorithm is a SPOF. If there’s a bug it impacts every node. This took them down 4 times.</li><li>To handle rapid growth you need to spread data out evenly to handle the ever increasing load.</li><li>The least data you move across your nodes the more stable your architecture. This is why they went with sharding over clusters.</li><li>A service oriented architecture rules. It isolates functionality, helps reduce connections, organize teams, organize support, and &nbsp;improves security.</li></ul>
+
+
+
+<ul><li>Asked yourself what your really want to be. Drop technologies that match that vision, even if you have to rearchitecture everything.</li><li>Don’t freak out about losing a little data. They keep user data in memory and write it out periodically. A loss means only a few hours of data are lost, but the resulting system is much simpler and more robust, and that’s what matters.</li></ul>
+
+
+
+<blockquote class="wp-block-quote is-style-default"><p><a href="http://highscalability.com/blog/2013/4/15/scaling-pinterest-from-0-to-10s-of-billions-of-page-views-a.html" target="_blank" rel="noreferrer noopener">from: http://highscalability.com/blog/2013/4/15/scaling-pinterest-from-0-to-10s-of-billions-of-page-views-a.html</a></p></blockquote>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p>NOTE: save for me!</p>
+<div class="post-views content-post post-244 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">3</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/09/26/nhung-cong-nghe-ma-pinterest-da-dang-dung2013/">Những công nghệ mà pinterest đã/đang dùng(2013)</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Cách cài đặt và deploy SailsJS với PM2 trên Ubuntu 20.04</title>
+		<link>/blog/2021/06/06/cach-cai-dat-va-deploy-sailsjs-voi-pm2-tren-ubuntu-20-04/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 06 Jun 2021 15:37:49 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[MongoDB]]></category>
+		<category><![CDATA[Nginx]]></category>
+		<category><![CDATA[Pm2]]></category>
+		<category><![CDATA[SailsJS]]></category>
+		<guid isPermaLink="false">/?p=157</guid>
+
+					<description><![CDATA[<p>Mình có 1 trang web được viết bằng SailsJS, MongoDB và mình muốn deploy lên server một cách đơn giản nhất, chỉ cần gõ lệnh deploy thì sẽ có 1 tool nào đó giúp mình những việc như lên server pull code mới nhất về, cài đặt những package mới, restart server, v.v. Mình có [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/06/06/cach-cai-dat-va-deploy-sailsjs-voi-pm2-tren-ubuntu-20-04/">Cách cài đặt và deploy SailsJS với PM2 trên Ubuntu 20.04</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Mình có 1 trang web được viết bằng <a href="https://sailsjs.com/" target="_blank" rel="noreferrer noopener">SailsJS</a>, MongoDB và mình muốn deploy lên server một cách đơn giản nhất, chỉ cần gõ lệnh deploy thì sẽ có 1 tool nào đó giúp mình những việc như lên server pull code mới nhất về, cài đặt những package mới, restart server, v.v. Mình có tìm hiểu một vài cách deploy NodeJS trước đó thì mình thích dùng <a href="https://pm2.keymetrics.io/" target="_blank" rel="noreferrer noopener">PM2</a> vì tính đơn giản và dễ dùng của nó. Ở bài viết này mình xin chia sẽ cách mình đã deploy lên EC2</p>
+
+
+
+<ol><li>Setup EC2 instance</li><li>Setup NodeJS environment</li><li>Setup MongoDB</li><li>Setup Nginx</li><li>Setup PM2</li></ol>
+
+
+
+<h2 class="wp-block-heading"><strong>1. Setup EC2 instance</strong></h2>
+
+
+
+<p>Hiện tại mình đang dùng gói tier của AWS, setup Ubuntu 20.4 LTS </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="506" src="/wp-content/uploads/2021/06/image-3-1024x506.png" alt="" class="wp-image-163" srcset="/wp-content/uploads/2021/06/image-3-1024x506.png 1024w, /wp-content/uploads/2021/06/image-3-300x148.png 300w, /wp-content/uploads/2021/06/image-3-768x380.png 768w, /wp-content/uploads/2021/06/image-3-1536x759.png 1536w, /wp-content/uploads/2021/06/image-3-2048x1012.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p>Chọn instance t2 micro</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="507" src="/wp-content/uploads/2021/06/image-4-1024x507.png" alt="" class="wp-image-164" srcset="/wp-content/uploads/2021/06/image-4-1024x507.png 1024w, /wp-content/uploads/2021/06/image-4-300x148.png 300w, /wp-content/uploads/2021/06/image-4-768x380.png 768w, /wp-content/uploads/2021/06/image-4-1536x760.png 1536w, /wp-content/uploads/2021/06/image-4-2048x1014.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p>Ở bước tiếp theo: <strong>Config instance</strong>, <strong>Add Storage</strong>, <strong>Add Tags</strong> mình không có nhu cầu config nên <strong>Next </strong>luôn.</p>
+
+
+
+<p>Tiếp theo là <strong>Step 6: Configure Security Group</strong>, ở bước này mình cần mở một vài port để trang web có thể truy cập được từ internet.</p>
+
+
+
+<p>Những port đó là: <strong>22</strong> (SSH), <strong>80</strong>(HTTP), <strong>443</strong>(HTTPS)</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="506" src="/wp-content/uploads/2021/06/image-2-1024x506.png" alt="" class="wp-image-162" srcset="/wp-content/uploads/2021/06/image-2-1024x506.png 1024w, /wp-content/uploads/2021/06/image-2-300x148.png 300w, /wp-content/uploads/2021/06/image-2-768x379.png 768w, /wp-content/uploads/2021/06/image-2-1536x758.png 1536w, /wp-content/uploads/2021/06/image-2-2048x1011.png 2048w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p></p>
+
+
+
+<p>Sau khi hoàn tất những bước trên, bước cuối cùng là <strong>Launch, </strong>trong bước này bạn sẽ tạo mới hoặc chọn <strong>key-pair</strong>(key này dùng để SSH lên server và không thể thay đổi được nên cần có những phương pháp lưu trữ phù hợp với nó.)</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="700" height="519" src="/wp-content/uploads/2021/06/image-5.png" alt="" class="wp-image-166" srcset="/wp-content/uploads/2021/06/image-5.png 700w, /wp-content/uploads/2021/06/image-5-300x222.png 300w, /wp-content/uploads/2021/06/image-5-80x60.png 80w" sizes="(max-width: 700px) 100vw, 700px" /></figure></div>
+
+
+
+<p>Bước cuối cùng là <strong>Launch</strong>. Chờ khoảng 5p thì server sẽ setup xong.</p>
+
+
+
+<p>Một số step <strong>NÊN  LÀM </strong> sau khi setup xong instance:</p>
+
+
+
+<ol><li><strong>Đặt tên instance</strong> (đơn giản nhưng quan trọng lắm nha)</li></ol>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="230" src="/wp-content/uploads/2021/06/image-6-1024x230.png" alt="" class="wp-image-170" srcset="/wp-content/uploads/2021/06/image-6-1024x230.png 1024w, /wp-content/uploads/2021/06/image-6-300x67.png 300w, /wp-content/uploads/2021/06/image-6-768x172.png 768w, /wp-content/uploads/2021/06/image-6.png 1172w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p>2. Chỉ định elastic IP (<strong>Allocate</strong> <strong>Elastic IP</strong> <strong>address</strong>)</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="637" src="/wp-content/uploads/2021/06/image-7-1024x637.png" alt="" class="wp-image-171" srcset="/wp-content/uploads/2021/06/image-7-1024x637.png 1024w, /wp-content/uploads/2021/06/image-7-300x187.png 300w, /wp-content/uploads/2021/06/image-7-768x478.png 768w, /wp-content/uploads/2021/06/image-7.png 1505w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="942" height="844" src="/wp-content/uploads/2021/06/image-8.png" alt="" class="wp-image-172" srcset="/wp-content/uploads/2021/06/image-8.png 942w, /wp-content/uploads/2021/06/image-8-300x269.png 300w, /wp-content/uploads/2021/06/image-8-768x688.png 768w" sizes="(max-width: 942px) 100vw, 942px" /></figure></div>
+
+
+
+<p>Lấy xong nhớ đặt tên nhé </p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="529" src="/wp-content/uploads/2021/06/image-9-1024x529.png" alt="" class="wp-image-173" srcset="/wp-content/uploads/2021/06/image-9-1024x529.png 1024w, /wp-content/uploads/2021/06/image-9-300x155.png 300w, /wp-content/uploads/2021/06/image-9-768x397.png 768w, /wp-content/uploads/2021/06/image-9-290x150.png 290w, /wp-content/uploads/2021/06/image-9.png 1507w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p>Chọn IP cần chỉ định</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="1024" height="554" src="/wp-content/uploads/2021/06/image-10-1024x554.png" alt="" class="wp-image-174" srcset="/wp-content/uploads/2021/06/image-10-1024x554.png 1024w, /wp-content/uploads/2021/06/image-10-300x162.png 300w, /wp-content/uploads/2021/06/image-10-768x415.png 768w, /wp-content/uploads/2021/06/image-10.png 1504w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure></div>
+
+
+
+<p>Chọn instance và click <strong>Associate</strong></p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="866" height="742" src="/wp-content/uploads/2021/06/image-11.png" alt="" class="wp-image-175" srcset="/wp-content/uploads/2021/06/image-11.png 866w, /wp-content/uploads/2021/06/image-11-300x257.png 300w, /wp-content/uploads/2021/06/image-11-768x658.png 768w" sizes="(max-width: 866px) 100vw, 866px" /></figure></div>
+
+
+
+<p></p>
+
+
+
+<p><strong>Note: </strong> Để bắt đầu những bước tiếp theo cần phải SSH vào instance vừa tạo, lệnh như sau:</p>
+
+
+
+<p>Cấp quyền <strong>400</strong> cho file <strong>.pem</strong></p>
+
+
+
+<pre class="wp-block-code"><code>chmod 400 &lt;path/to/pem/file.pem&gt;</code></pre>
+
+
+
+<pre class="wp-block-code"><code>ssh ubuntu@&lt;ip&gt; -i &lt;path/to/pem/file.pem&gt;</code></pre>
+
+
+
+<h2 class="wp-block-heading"><strong>2. Setup NodeJS environment</strong></h2>
+
+
+
+<p></p>
+
+
+
+<p><strong>2.1. Cài đặt NodeJS 14.x: </strong></p>
+
+
+
+<pre class="wp-block-code"><code>curl -sL https://deb.nodesource.com/setup_14.x | sudo -E bash -;
+sudo apt-get install -y nodejs;</code></pre>
+
+
+
+<p>Sau khi cài Nodejs xong, kiểm tra version xem có đúng chưa:</p>
+
+
+
+<pre class="wp-block-code"><code>node -v 
+=&gt; v14.17.0 
+npm -v 
+=&gt; 7.16.0</code></pre>
+
+
+
+<p><strong>2.2. Cài đặt Yarn và developent tool</strong>: (You may also need development tools to build native addons)</p>
+
+
+
+<pre class="wp-block-code"><code>## You may also need development tools to build native addons:
+     sudo apt-get install gcc g++ make;
+## To install the Yarn package manager, run:
+     curl -sL https://dl.yarnpkg.com/debian/pubkey.gpg | gpg --dearmor | sudo tee /usr/share/keyrings/yarnkey.gpg &gt;/dev/null;
+     echo "deb &#91;signed-by=/usr/share/keyrings/yarnkey.gpg] https://dl.yarnpkg.com/debian stable main" | sudo tee /etc/apt/sources.list.d/yarn.list;
+     sudo apt-get update &amp;&amp; sudo apt-get install yarn;</code></pre>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading"><strong>3. Setup MongoDB</strong></h2>
+
+
+
+<p>bạn có thể tham khảo <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/" target="_blank" rel="noreferrer noopener">ở đây </a></p>
+
+
+
+<pre class="wp-block-code"><code>wget -qO - https://www.mongodb.org/static/pgp/server-4.4.asc | sudo apt-key add -;
+
+echo "deb &#91; arch=amd64,arm64 ] https://repo.mongodb.org/apt/ubuntu focal/mongodb-org/4.4 multiverse" | sudo tee /etc/apt/sources.list.d/mongodb-org-4.4.list;
+
+sudo apt-get update;
+
+sudo apt-get install -y mongodb-org;</code></pre>
+
+
+
+<p>Sau khi cài đặt xong MongoDB</p>
+
+
+
+<p><strong>Start Mongo</strong>: </p>
+
+
+
+<pre class="wp-block-code"><code>sudo systemctl start mongod</code></pre>
+
+
+
+<p><strong>Start mongodb sau khi reboot:</strong></p>
+
+
+
+<pre class="wp-block-code"><code>sudo systemctl enable mongod</code></pre>
+
+
+
+<p>Một số lệnh cơ bản, bạn có thể xem thêm tại <a href="https://docs.mongodb.com/manual/tutorial/install-mongodb-on-ubuntu/#start-mongodb" target="_blank" rel="noreferrer noopener">đây</a></p>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading"><strong>4. Setup Nginx</strong></h2>
+
+
+
+<p>Bạn có thể tham khảo tại <a href="https://www.digitalocean.com/community/tutorials/how-to-install-nginx-on-ubuntu-20-04" target="_blank" rel="noreferrer noopener">đây</a> </p>
+
+
+
+<p>Để bắt đầu cài đặt Nginx, gõ lệnh sau</p>
+
+
+
+<pre class="wp-block-code"><code>sudo apt update
+sudo apt install nginx</code></pre>
+
+
+
+<p>Để kiểm tra Nginx đã được cài đặt thành công hay chưa</p>
+
+
+
+<pre class="wp-block-code"><code>nginx -v
+=&gt; nginx version: nginx/1.18.0 (Ubuntu)</code></pre>
+
+
+
+<p><strong>Config Nginx</strong></p>
+
+
+
+<p>Sử dụng lệnh sau để tạo file config cho website:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo nano /etc/nginx/sites-available/&lt;website&gt;.conf // thay thế website bằng tên website của bạn, ví dụ my-pet.conf</code></pre>
+
+
+
+<p>Do SailsJS chạy ở port <strong>1337 </strong>nên config của mình sẽ như sau(copy dán vào thôi): </p>
+
+
+
+<pre class="wp-block-code"><code>proxy_cache_path /var/cache/nginx levels=1:2 keys_zone=STATIC:10m inactive=7d use_temp_path=off;
+
+server {
+    server_name 18.223.173.52;
+    server_tokens off;
+
+    gzip on;
+    gzip_proxied any;
+    gzip_comp_level 4;
+    gzip_types text/css application/javascript image/svg+xml;
+
+
+    proxy_http_version 1.1;
+    proxy_set_header Upgrade $http_upgrade;
+    proxy_set_header Connection 'upgrade';
+    proxy_set_header Host $host;
+    proxy_cache_bypass $http_upgrade;
+
+    location / {
+            proxy_pass http://localhost:1337;/
+            proxy_http_version 1.1;
+            proxy_set_header Upgrade $http_upgrade;
+            proxy_set_header Connection 'upgrade';
+            proxy_set_header Host $host;
+            proxy_cache_bypass $http_upgrade;
+            proxy_buffers 8 16k;
+            proxy_buffer_size 32k;
+    }
+}</code></pre>
+
+
+
+<p><strong>Lưu ý: </strong></p>
+
+
+
+<p>Cần thay đổi <strong>server_name </strong>là địa chỉ IP hoặc domain_name của bạn.</p>
+
+
+
+<p>Bước tiếp theo cần làm là symlink file config vừa tạo vào thư mục <strong><strong><code>/etc/nginx/sites-enabled/</code></strong></strong></p>
+
+
+
+<pre class="wp-block-code"><code>cd /etc/nginx/sites-enabled/;
+sudo ln -s &lt;website&gt;.conf /etc/nginx/sites-available/&lt;website&gt;.conf </code></pre>
+
+
+
+<p>Test lại kết quả Nginx thế nào:</p>
+
+
+
+<pre class="wp-block-code"><code>sudo nginx -t
+
+=&gt; nginx: the configuration file /etc/nginx/nginx.conf syntax is ok
+=&gt; nginx: configuration file /etc/nginx/nginx.conf test is successful</code></pre>
+
+
+
+<p>Nếu kếu quả ra như trên là ổn rồi, restart Nginx để apply config mới.</p>
+
+
+
+<pre class="wp-block-code"><code>sudo systemctl restart nginx</code></pre>
+
+
+
+<p>Xong phần config Nginx.</p>
+
+
+
+<h2 class="wp-block-heading"><strong>5. Setup PM2</strong></h2>
+
+
+
+<p>PM2 là .. PM2 is a daemon process manager that will help you manage and keep your application online 24/7</p>
+
+
+
+<p>Bạn hãy xem thêm tại <a href="https://pm2.keymetrics.io/" target="_blank" rel="noreferrer noopener">đây</a> </p>
+
+
+
+<p>Để setup deploy bằng PM2 ta cần<strong>:</strong></p>
+
+
+
+<ul><li>Setup PM2 ở server bằng câu lệnh: <strong><code>npm install -g pm2</code></strong></li><li>Setup PM2 ở local bằng câu lệnh: <strong><code>npm install -g pm2</code></strong></li></ul>
+
+
+
+<p><strong>5.1 Ở máy local</strong></p>
+
+
+
+<p>Tạo file <strong>ecosystem.config.js</strong> như hình.</p>
+
+
+
+<div class="wp-block-image"><figure class="aligncenter size-large"><img loading="lazy" decoding="async" width="466" height="970" src="/wp-content/uploads/2021/06/image-13.png" alt="" class="wp-image-190" srcset="/wp-content/uploads/2021/06/image-13.png 466w, /wp-content/uploads/2021/06/image-13-144x300.png 144w" sizes="(max-width: 466px) 100vw, 466px" /></figure></div>
+
+
+
+<p>Nội dung file <strong>ecosystem.config.js</strong>:</p>
+
+
+
+<pre class="wp-block-code"><code>module.exports = {
+  apps: &#91;
+    {
+      name: 'my-pet-web',
+      script: 'app.js',
+      env_production: {
+        NODE_ENV: 'production',
+      },
+    },
+  ],
+  deploy: {
+    // "production" is the environment name
+    production: {
+      // SSH key path, default to $HOME/.ssh
+      key: '&lt;path-to-pem-file&gt;',
+      // key: '.cert/ec2-my-pet-web.pem',
+      // SSH user
+      user: 'ubuntu',
+      // SSH host
+      host: &#91;&lt;your host ip&gt;],
+      // host: &#91;'18.223.173.52'],
+      // SSH options with no command-line flag, see 'man ssh'
+      // can be either a single string or an array of strings
+      ssh_options: 'StrictHostKeyChecking=no',
+      // GIT remote/branch
+      ref: 'origin/deploy',
+      // GIT remote
+      repo: 'https://&lt;github_user_name&gt;:&lt;github_personal_key&gt;@github.com/&lt;github_url&gt;',
+      // repo: 'https://kokorolx:ghp_1234567890876543@github.com/kokorolx/my-pet-web.git',
+      // path in the server
+      path: '/var/www/my-pet-web',
+      // Pre-setup command or path to a script on your local machine
+      // Post-setup commands or path to a script on the host machine
+      // eg: placing configurations in the shared dir etc
+      'post-setup':
+        'echo \'post setup.........\'; cp /var/www/my-pet-web/shared/.env /var/www/my-pet-web/current/.env; yarn install; pm2 start yarn --name my-pet-web --interpreter bash -- start; pm2 l;',
+      // post-deploy action
+      'post-deploy':
+        'echo \'post deploy.........\';cp /var/www/my-pet-web/shared/.env /var/www/my-pet-web/current/.env; yarn install; pm2 restart my-pet-web; pm2 l;',
+    },
+  },
+};
+</code></pre>
+
+
+
+<p><strong>Lưu ý:</strong></p>
+
+
+
+<p><strong>repo</strong>: chỗ này là repo URL của bạn, có thể generate <strong>personal key</strong> để deploy, cách generate <a href="https://docs.github.com/en/github/authenticating-to-github/keeping-your-account-and-data-secure/creating-a-personal-access-token" target="_blank" rel="noreferrer noopener">tại đây</a>, tùy theo dự án mà có cách thay đổi URL chỗ này, nếu bất kỳ ai cũng có quyền deploy thì nên gắn <strong>personal key</strong> vào URL để tiện, không cần phải config SSH ở server.</p>
+
+
+
+<p> <strong>post-setup</strong>: Dành cho lần deploy đầu tiên, PM2 sẽ tạo folder theo <strong>path </strong>trong file config. Copy file <strong>.env</strong> (file này phải tự tạo, chứa những enviroment variable của dự án), chạn yarn và start dự án bằng lệnh <strong><code>pm2 start yarn --name my-pet-web --interpreter bash -- start</code></strong>;</p>
+
+
+
+<p>Script deploy lần đầu: </p>
+
+
+
+<pre class="wp-block-code"><code>pm2 deploy production setup // lưu ý tên stage nhé, của mình là production</code></pre>
+
+
+
+<p><strong>post-deploy</strong>: Dành cho những lần chạy tiếp theo, PM2 sẽ copy file <strong>.env</strong>, chạy yarn, và restart lại app.</p>
+
+
+
+<p>Script deploy những lần tiếp theo:</p>
+
+
+
+<pre class="wp-block-code"><code>pm2 deploy production update // lưu ý tên stage nhé, của mình là production</code></pre>
+
+
+
+<p>Sau khi chạy thành công thì mở browser test thôi (cool)</p>
+
+
+
+<p>Câu lệnh cuối cùng và rất quan trọng ở máy <strong>server</strong>, nó sẽ giúp PM2 tự khởi động lại những app đang chạy sau khi bạn <strong>reboot </strong>máy server.</p>
+
+
+
+<pre class="wp-block-code"><code>pm2 save</code></pre>
+
+
+
+<p></p>
+
+
+
+<p>Bài viết đến đây là hết.</p>
+
+
+
+<p>Chúc mọi người config server thành công nhé.</p>
+<div class="post-views content-post post-157 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">53</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/06/06/cach-cai-dat-va-deploy-sailsjs-voi-pm2-tren-ubuntu-20-04/">Cách cài đặt và deploy SailsJS với PM2 trên Ubuntu 20.04</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</title>
+		<link>/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Tue, 04 May 2021 16:04:44 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[iRedAdmin]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<guid isPermaLink="false">/?p=19</guid>
+
+					<description><![CDATA[<p>Như phần trước mình có giới thiệu, hôm nay mình sẽ hưỡng dẫn các bạn cài đặt iRedMail server. Table of content: Mail server là gì? Ưu điểm và nhược điểm khi tự setup mail server thay vì thuê Giới thiệu iRedMail và một số chức năng chính của iRedAdmin Cài đặt iRedMail trên ubuntu [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/">[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Như phần trước mình có giới thiệu, hôm nay mình sẽ hưỡng dẫn các bạn cài đặt iRedMail server.</p>
+
+
+
+<h2 class="wp-block-heading">Table of content:</h2>
+
+
+
+<ol><li><strong>Mail server là gì?</strong></li><li><strong>Ưu điểm và nhược điểm khi tự setup mail server thay vì thuê</strong></li><li><strong>Giới thiệu iRedMail và một số chức năng chính của iRedAdmin</strong></li><li><strong>Cài đặt iRedMail trên ubuntu AWS EC2</strong></li><li><strong>Sử dụng Mailgun để gửi và nhận mail</strong></li><li><strong>Kết luận</strong></li></ol>
+
+
+
+<p><strong>1.  Mail server là gì?<br></strong>Mail server hay server mail là một máy tính được cài một tập các chương trình với nhiệm vụ chính là quản lý email, gửi và nhận email.</p>
+
+
+
+<p>Mail server cho phép bạn tạo và quản lý các tài khoản email. Ví dụ: nếu bạn có hostname là <strong>thnkandgrow.com </strong>thì mail server có thể cung cấp email dưới dạng <strong>admin@thnkandgrow.com.</strong></p>
+
+
+
+<p><br>Mail server gửi và nhận email dựa trên các chuẩn giao thức email. Ví dụ: SMPT để gửi và xử lý các yêu cầu gửi email(outgoing email) và giao thức IMAP/POP3 dùng để xử lý các email nhận(incoming email). </p>
+
+
+
+<p><br>Khi login vào 1 webmail(ví dụ thunder bird, rubocube) thì những giao thức này được sử dụng phía sau.<br>Mail server có 2 loại: Email as a Service (EaaS) và Self-hosted email</p>
+
+
+
+<p><strong>2. Ưu điểm và nhược điểm khi tự setup mail server thay vì dùng EaaS</strong></p>
+
+
+
+<figure class="wp-block-table is-style-regular"><table><thead><tr><th>&#8211;</th><th>Ưu điểm</th><th>Nhược điểm</th></tr></thead><tbody><tr><td>Self-hosted email</td><td>&#8211; Thường dùng cho doanh nghiệp<br>&#8211; Giá cả hợp lý<br>&#8211; Có thể dễ dàng scale<br>&#8211; Đảm bảo tính riêng tư(tất cả các email đều được nằm trên server của chúng ta)</td><td>&#8211; Khó cài đặt<br>&#8211; Antivirus/spam nhiều lúc hoạt động không chính xác<br>&#8211; Thường bị mark spam email</td></tr><tr><td>Email as a Service</td><td>&#8211; Thường dùng cho cá nhân<br>&#8211; Dễ cài đặt và sử dụng<br>&#8211; Bảo mật<br>&#8211; Antivirus/spam tốt<br>&#8211; Thường support 24/7</td><td>&#8211; Giá khá cao và thường tính theo user/month<br>&#8211; Tính riêng tư không chắc được đảm bảo </td></tr></tbody></table><figcaption>pros and cons self-hosted email and EaaS</figcaption></figure>
+
+
+
+<p><strong>3. Giới thiệu iRedMail và một số chức năng chính của iRedAdmin</strong></p>
+
+
+
+<p>iRedMail được ra đời năm 2007, là 1 phần mềm mã nguồn mở, cho phép cài đặt trên các nền tảng phổ biến như RedHat, CentOS, Debian, Ubuntu, FreeBSD, OpenBSD.</p>
+
+
+
+<p>iRedMail đã được tích hợp tất cả những thành phần mã nguồn mở cùng nhau và áp dụng những phương pháp hay nhất, bạn chỉ cần chạy một vài script là có 1 mail server.</p>
+
+
+
+<p>Bạn có thể tìm hiểu thêm về iRedMail <a href="https://www.iredmail.org/index.html" target="_blank" rel="noreferrer noopener">tại đây</a> và một số chức năng của iRedAdmin tại <a href="https://www.iredmail.org/admin_panel.html">Features list of iRedAdmin-Pro</a>. &#8211; có thể sử dụng demo tại đây: <a href="https://www.iredmail.org/admin_demo.html" target="_blank" rel="noreferrer noopener">iRedAdmin-Pro demo</a></p>
+
+
+
+<p><strong>4. Cài đặt iRedMail trên ubuntu AWS EC2</strong></p>
+
+
+
+<p>Mình đã follow bài này để làm theo, 100% cài được <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /> <a href="https://docs.iredmail.org/install.iredmail.on.debian.ubuntu.html">Install iRedMail Debian, Ubuntu</a></p>
+
+
+
+<p>Một số lưu ý khi cài đặt:</p>
+
+
+
+<p><strong>System Requirements</strong>: nên cài trên instance mới, sạch sẽ hoàn toàn.</p>
+
+
+
+<p> Để iRedMail hoạt động một cách trơn tru thì các bạn có thể tham khảo những port cần phải mở ở bài viết  document của iRedMail nhé: <a href="https://docs.iredmail.org/network.ports.html" target="_blank" rel="noreferrer noopener">Which network ports are open by iRedMail</a></p>
+
+
+
+<blockquote class="wp-block-quote"><p>iRedMail is designed to be deployed on a&nbsp;<strong>FRESH</strong>&nbsp;server system, which means your server does&nbsp;<strong>NOT</strong>&nbsp;have mail related components installed, e.g. MySQL, OpenLDAP, Postfix, Dovecot, Amavisd, etc.&nbsp;</p></blockquote>
+
+
+
+<p>RAM: ít nhất 2Gb (nhỏ hơn, tạo swap cũng không chạy nỗi nha), tốt nhất là 4Gb.</p>
+
+
+
+<p><a href="https://geek-university.com/linux/uid-user-identifier-gid-group-identifier/">UID/GID</a>: Không sử dụng 2000, 20001, 2002</p>
+
+
+
+<p>VPS phải có khả năng mở port 25. Thông thường bạn phải viết mail xin phép mở port này.<br>=&gt;<strong> DigitalOcean không cho phép mở.</strong></p>
+
+
+
+<blockquote class="wp-block-quote"><p>Many ISPs block port 25 by default, it&#8217;s used for communication between mail servers, it must be open, otherwise your server may be not able to receive or / and send emails. Please contact your ISP to make sure it&#8217;s not blocked, or ask them to unblock.</p><p>&#8211; Amazon AWS EC2. Request to&nbsp;<a href="https://aws.amazon.com/premiumsupport/knowledge-center/ec2-port-25-throttle/">remove the throttle on port 25</a>.<br>&#8211; Google Cloud Platform.<br>&#8211; Microsoft Azure.<br>&#8211; Linode. Explained in the&nbsp;<a href="https://www.linode.com/blog/linode/a-new-policy-to-help-fight-spam/">blog post</a>, you can open a support ticket to request the Linode team to open it. If you&nbsp;<a href="https://www.linode.com/?r=b4d04083428fb99ce452d84b57253d11692a0850">sign up to Linode with our reference</a>, iRedMail Team&#8217;s Linode account will receive a credit of $15-20.00. Thanks.<br>&#8211; DigitalOcean. According to&nbsp;<a href="https://www.digitalocean.com/community/questions/port-25-465-is-blocked-how-can-i-enable-it">a post in their community</a>,&nbsp;<strong>SEEMS</strong>&nbsp;impossible to unblock port 25, that means you can&nbsp;<strong>NOT</strong>&nbsp;run mail server on DigitalOcean VPS.</p></blockquote>
+
+
+
+<p>Sau khi cài đặt xong bạn có thể mở file <code><strong>/root/iRedMail-x.y.z/iRedMail.tips</strong></code> để xem các thông tin của server.</p>
+
+
+
+<p><strong>Một số bước cần lưu ý sau khi setup thành công iRedMail:<br></strong>&#8211; <a href="https://docs.iredmail.org/setup.dns.html" target="_blank" rel="noreferrer noopener">Setup DNS record</a>. Tất nhiên rồi, nếu bạn không config DNS thì mail biết đi đâu, về đâu <img src="https://s.w.org/images/core/emoji/14.0.0/72x72/1f600.png" alt="😀" class="wp-smiley" style="height: 1em; max-height: 1em;" /><br>&#8211; <a href="https://docs.iredmail.org/letsencrypt.html" target="_blank" rel="noreferrer noopener">Cài đặt SSL certificate</a>. Nếu có SSL, bạn sẽ tránh khỏi những cảnh báo khi sử dụng web browser hoặc mail client truy cập mailbox. Đơn giản lắm. </p>
+
+
+
+<p><strong>5. Sử dụng Mailgun để gửi và nhận mail</strong></p>
+
+
+
+<p>Chúc mừng các bạn, cuối cùng chúng ta đã setup gần xong 1 Mail Server rồi, nhưng nó vẫn chưa gửi mail được. Các lý do bạn cần phải xem xét:</p>
+
+
+
+<ol><li>Đã mở được các port cần thiết chưa?</li><li>Đã xin phép để mở port <strong>25 </strong>chưa?</li></ol>
+
+
+
+<p>Nếu xin phép để mở port <strong>25 </strong>làm bạn quá tốn thời gian và sức lực, bạn có thể sử dụng <a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)" target="_blank" rel="noreferrer noopener">MailGun</a> như 1 bộ chuyển tiếp(relay) để gửi và nhận email.</p>
+
+
+
+<p>Tất nhiên là bạn cần có 1 tài khoản ở MailGun.com rồi, ghé vào <a href="https://signup.mailgun.com/new/signup">đây</a> để đăng ký nhé</p>
+
+
+
+<p>Các bước làm như sau:</p>
+
+
+
+<p><strong><em>Notice: </em></strong>Postfix installed by default when setup iRedMail</p>
+
+
+
+<p><strong>Step 1</strong>: SSH to iRedMail server</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>ssh &lt;your-user>@</strong>&lt;your-server-ip></pre>
+
+
+
+<p><strong>Step 2</strong>: &nbsp;Login to root user</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>sudo su</strong></pre>
+
+
+
+<p><strong>Step 3: </strong>Modify the Postfix configuration options.<br>Open postfix config:</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>vi /etc/postfix/main.cf</strong></pre>
+
+
+
+<blockquote class="wp-block-quote"><p>If they exist, comment out the following lines.</p></blockquote>
+
+
+
+<pre class="wp-block-preformatted"><strong># default_transport = error</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong># relay_transport = error</strong></pre>
+
+
+
+<p>Add the Mailgun SMTP service by adding the following line to<strong> the end of the file.</strong></p>
+
+
+
+<pre class="wp-block-preformatted"><strong>relayhost = [smtp.mailgun.org]:2525</strong></pre>
+
+
+
+<p>To enforce SSL/TLS support and configure SMTP authentication for these requests, add the following lines to the end of the file. A simple access and security layer (SASL) module handles authentication in the Postfix configuration.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_auth_enable = yes</strong> // nếu không gửi mail được có thể bạn đã setup cerrtificate sai. Chuyển sang No hoặc May hoặc nghiên cứu cài lại certificate.</pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_password_maps = hash:</strong><strong>/etc/</strong><strong>postfix/sasl_passwd</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>smtp_sasl_security_options = noanonymous</strong></pre>
+
+
+
+<p>Save your changes and close the file.<br><strong>Step 4: </strong>Generate the SASL password map.Create a new password file that is ready for standard input.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>cat &gt; /etc/postfix/sasl_passwd &lt;&lt; EOF</strong></pre>
+
+
+
+<p>At the prompt, enter the service details, replacing YOUR_SMTP_LOGIN and YOUR_SMTP_PASSWORD with your credentials. See the <a href="https://help.mailgun.com/hc/en-us/articles/203380100-Where-Can-I-Find-My-API-Key-and-SMTP-Credentials">Mailgun help</a> for instructions on how to view or change your per-domain credentials.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>[smtp.mailgun.org]:2525 YOUR_SMTP_LOGIN:YOUR_SMTP_PASSWORD</strong></pre>
+
+
+
+<p>Close and save the file by typing the delimiter, EOF .<br>Use the postmap utility to generate a .db file.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>postmap /etc/postfix/sasl_passwd</strong></pre>
+
+
+
+<pre class="wp-block-preformatted"><strong>ls -l /etc/postfix/sasl_passwd*</strong></pre>
+
+
+
+<pre class="wp-block-preformatted">-rw------- 1 root root &nbsp; 101 Apr &nbsp;5 08:04 /etc/postfix/sasl_passwd</pre>
+
+
+
+<pre class="wp-block-preformatted">-rw------- 1 root root 12288 Apr &nbsp;5 08:04 /etc/postfix/sasl_passwd.db</pre>
+
+
+
+<p>Next, remove the file that contains your credentials because it is no longer needed.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>rm /etc/postfix/sasl_passwd</strong></pre>
+
+
+
+<p>Set the permissions on your .db file.</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>chmod 600 /etc/postfix/sasl_passwd.db</strong></pre>
+
+
+
+<p>Restart postfix</p>
+
+
+
+<pre class="wp-block-preformatted"><strong>/etc/init.d/postfix restart</strong></pre>
+
+
+
+<p>Test your configuration. Install the <strong>mailx</strong> or <strong>mailutils</strong> package and test your configuration.</p>
+
+
+
+<p> <strong>6. Kết luận</strong></p>
+
+
+
+<p>Để setup được một self-hosted mail bạn cần phải học kha khá kiến thức mới về mail server, những ứng dụng đi kèm. Bên cạnh những ưu điểm của self-hosted mail thì bạn cũng cần phải xem xét những nhược điểm của nó trước khi đưa ra quyết định thuê EaaS hay Self-hosted mail nhé.</p>
+
+
+
+<p style="font-size:10px"><em>reference: </em><br>1. <em>https://techterms.com/definition/mail_server</em><br>2. https://www.iredmail.org/</p>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)" target="_blank" rel="noreferrer noopener">Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a></p>
+<div class="post-views content-post post-19 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">78</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/05/04/tut-phan-1-gioi-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/">[TUT] Phần 1 – Giới thiệu và hướng dẫn cài đặt server mail với iRedMail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Series hướng dẫn setup Server mail</title>
+		<link>/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 04 Apr 2021 15:40:19 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=39</guid>
+
+					<description><![CDATA[<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi và nhận mail. Kết hợp mailgun và một số công nghệ của AWS để lưu trữ incoming email.</p>
+<p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Sau gần 2 tuần nghiên cứu mò mẫm về server mail, mình đã cài đặt thành công 1 con server mail bằng iRedMail kết hợp Mailgun để gửi/nhận mail và một số công nghệ của AWS để lưu trữ incoming email.</p>
+
+
+
+<p>Bài viết mang tính chất chia sẽ và lưu trữ kiến thức</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Yêu cầu bài toán &#8211; Flowchart</li><li>Các công nghệ sử dụng<ol><li><a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li><a href="/blog/2021/04/04/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/(opens in a new tab)">MailGun &#8211; Một nhà cung cấp SMTP miễn phí</a></li><li><a href="/?p=66" target="_blank" rel="noreferrer noopener">AWS Route53 và config DNS</a></li><li><a href="/blog/2021/04/04/tut-phan-4-aws-lambda-serverless-framework/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS Lambda &#8211; Serverless framework</a></li><li><a href="/blog/2021/04/04/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)" target="_blank" rel="noreferrer noopener">AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a></li></ol></li><li>Implemented code</li></ol>
+
+
+
+<div class="wp-block-columns is-layout-flex wp-container-core-columns-layout-1 wp-block-columns-is-layout-flex">
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+
+
+
+<div class="wp-block-column is-layout-flow wp-block-column-is-layout-flow"></div>
+</div>
+
+
+
+<h1 class="wp-block-heading">Yêu cầu bài toán:</h1>
+
+
+
+<p>Khách hàng muốn có 1 con server mail riêng để gửi và nhận email và đề xuất  dùng iRedMail. Sau một số discuss thì khách hàng quyết định kết hợp với mailgun để tránh virus/spam.</p>
+
+
+
+<pre class="wp-block-code"><code>The dream goal would be for us to send and receive email through mailgun and we would use mailgun for virus / spam detection.</code></pre>
+
+
+
+<p>Các bạn có thể xem thêm flowchart để dễ hiểu requirement</p>
+
+
+
+<figure class="wp-block-image size-large is-resized is-style-default"><img loading="lazy" decoding="async" src="/wp-content/uploads/2021/04/image-1024x608.png" alt="Flowchart " class="wp-image-40" width="780" height="463" srcset="/wp-content/uploads/2021/04/image-1024x608.png 1024w, /wp-content/uploads/2021/04/image-300x178.png 300w, /wp-content/uploads/2021/04/image-768x456.png 768w, /wp-content/uploads/2021/04/image-1536x912.png 1536w, /wp-content/uploads/2021/04/image-2048x1216.png 2048w" sizes="(max-width: 780px) 100vw, 780px" /><figcaption>Flowchart </figcaption></figure>
+
+
+
+<p>Giải thích sơ bộ flowchart 1 chút nhé.</p>
+
+
+
+<p><strong>Step1: Người gửi mail(sender) sẽ gửi mail đến địa chỉ </strong><code><strong><span class="has-inline-color has-luminous-vivid-orange-color">recipient@abc.com</span></strong></code></p>
+
+
+
+<p><strong>Step 2: Email sẽ đến Mailgun và được mailgun xử lý </strong></p>
+
+
+
+<ul><li>Store email</li><li>Gửi thông báo đến 1 API endpoint(mình tạm đặt tên là <code><strong>processNotifyFromMailGun</strong></code> &#8211; step 3) có nhiệm vụ hứng notify từ Mailgun và tiếp tục xử lý</li></ul>
+
+
+
+<p><strong>Step 3: Xử lý nhận được notify từ Mailgun</strong></p>
+
+
+
+<ul><li>Tính toán attachment size, nếu lớn hơn <strong>25Mb</strong> thì gửi mail reject cho sender</li><li>Nếu pass được, tạo 1 SQS queue với các thông tin cần thiết như <strong><code><strong>message-url</strong>, <strong>from, to</strong>, <strong>subject</strong></code>, &#8230;</strong></li></ul>
+
+
+
+<p>Mục đích của <strong>Step 3</strong> là đảm bảo email không quá lớn và lợi dụng cơ chế retry của SQS để gửi lại nếu bị fail gì đó ở step này.</p>
+
+
+
+<p><strong>Step 4: Xử</strong> <strong>lý  message từ SQS và lưu nội dung email vào AWS S3 bucket</strong><br>Mình tạm đặt tên lambda này là <strong>processNotifySQSAndSaveEmailToS3. </strong>Nhiệm vụ chính của lambda này là xử lý message từ SQS ở step 3, download <code><strong>raw email</strong></code> từ mailgun về và upload lên AWS S3. (Tại sao lại là raw email mình sẽ giải thích ở step sau &lt;link&gt;)</p>
+
+
+
+<p><strong>Step 5: Các xử lý ở AWS S3 bucket </strong></p>
+
+
+
+<ul><li>Gửi message đến SQS ở <strong>Step 6</strong> khi 1 object được tạo trong bucket </li><li>Xoá object sau 14 ngày</li></ul>
+
+
+
+<p><strong>Step 6: SQS nhận notify từ AWS S3 bucket(Step 5)</strong><br>Ở step này, SQS sẽ nhận <strong>Event Notification </strong>từ AWS S3 bucket và trigger lambda gửi mail ở step sau.</p>
+
+
+
+<p><strong>Step 7: Gửi mail cho recipient</strong><br>Ở bước này, lambda <strong>processAndSendEmail</strong> sẽ được gọi, mục đích chính của lambda này là nhận message từ SQS (Step 6) và gửi mail cho <strong><code>recipient</code></strong> bằng cách sử dụng tài khoản SMTP.  Ở step này email sẽ bị reject <code><strong>recipient</strong></code> sẽ không nhận được email (vì mình đang mạo danh sender)</p>
+
+
+
+<p>Để giải quyết được vấn đề này Mailserver cần cho phép nhận những email mạo danh được gửi từ 1 tài khoản SMTP, ở đây mình dùng SMTP account: sender@&lt;domain.com></p>
+
+
+
+<h2 class="wp-block-heading"><strong>Các công nghệ sử dụng</strong></h2>
+
+
+
+<p>Các công nghệ được chọn vì những lý do sau:</p>
+
+
+
+<ul><li><strong>Mailgun</strong>: Mailgun có cơ chế chống spam/virus, retry khi lỗi, khả năng filter email và bộ API rất hữu dụng</li><li><strong>AWS SQS:</strong> Sử dụng đơn giản, cơ chế nhận message linh hoạt, retry, có thể integrate với các dịch vụ khác của AWS 1 cách dễ dàng, khả năng mở rộng tốt- điển hình là lambda và AWS S3.</li><li><strong>AWS S3</strong>: Có thể lưu được file nặng, có các event notification, lifecycle và các tính năng hữu ích khác. Khả năng mở rộng tốt.</li><li><strong>AWS Lambda</strong>: Có khả năng mở rộng rất tốt, không sợ bị chết hoặc &#8220;đơ&#8221; do có quá nhiều request cùng lúc.</li></ul>
+
+
+
+<h2 class="wp-block-heading">Tạm kết:</h2>
+
+
+
+<p>Với một coder tay mơ như mình, đây là một requirement khá phức tạp, liên quan đến khá nhiều công nghệ và config.</p>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">Phần 1 &#8211; Giới thiệu và hướng dẫn cài đặt server mail với iRedmail-Pro</a></p>
+<div class="post-views content-post post-39 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">7</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail-iredmail/">[TUT] Series hướng dẫn setup Server mail</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>

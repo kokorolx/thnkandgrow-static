@@ -1,0 +1,818 @@
+<?xml version="1.0" encoding="UTF-8"?><rss version="2.0"
+	xmlns:content="http://purl.org/rss/1.0/modules/content/"
+	xmlns:wfw="http://wellformedweb.org/CommentAPI/"
+	xmlns:dc="http://purl.org/dc/elements/1.1/"
+	xmlns:atom="http://www.w3.org/2005/Atom"
+	xmlns:sy="http://purl.org/rss/1.0/modules/syndication/"
+	xmlns:slash="http://purl.org/rss/1.0/modules/slash/"
+	>
+
+<channel>
+	<title>kokorolx &#8211; Th?nk And Grow</title>
+	<atom:link href="/blog/author/kokoro-lehoanggmail-com/feed/" rel="self" type="application/rss+xml" />
+	<link>/</link>
+	<description>Just Do It!</description>
+	<lastBuildDate>Sun, 06 Aug 2023 15:34:37 +0000</lastBuildDate>
+	<language>en-US</language>
+	<sy:updatePeriod>
+	hourly	</sy:updatePeriod>
+	<sy:updateFrequency>
+	1	</sy:updateFrequency>
+	<generator>https://wordpress.org/?v=6.4.3</generator>
+
+<image>
+	<url>/wp-content/uploads/2021/03/cropped-352320-32x32.jpg</url>
+	<title>kokorolx &#8211; Th?nk And Grow</title>
+	<link>/</link>
+	<width>32</width>
+	<height>32</height>
+</image> 
+	<item>
+		<title>Simplifying Your Work with Automated Recurring Tasks in Rails Using Sidekiq and Ice Cube</title>
+		<link>/blog/2023/08/06/simplifying-your-work-with-automated-recurring-tasks-in-rails-using-sidekiq-and-ice-cube/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 06 Aug 2023 15:34:37 +0000</pubDate>
+				<category><![CDATA[Ruby on Rails]]></category>
+		<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">/?p=366</guid>
+
+					<description><![CDATA[<p>Introduction In today's fast-paced world, finding ways to streamline tasks and boost productivity is essential. That's where the magic of automation comes in! In this article, we'll dive into the world of automated recurring tasks using the powerful combination of Rails, Sidekiq, and the Ice Cube gem. Get ready to make your work easier and [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2023/08/06/simplifying-your-work-with-automated-recurring-tasks-in-rails-using-sidekiq-and-ice-cube/">Simplifying Your Work with Automated Recurring Tasks in Rails Using Sidekiq and Ice Cube</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[<div class="vce-row-container" data-vce-boxed-width="true"><div class="vce-row vce-row--col-gap-30 vce-row-equal-height vce-row-content--top" id="el-9e831443" data-vce-do-apply="all el-9e831443"><div class="vce-row-content" data-vce-element-content="true"><div class="vce-col vce-col--md-auto vce-col--xs-1 vce-col--xs-last vce-col--xs-first vce-col--sm-last vce-col--sm-first vce-col--md-last vce-col--lg-last vce-col--xl-last vce-col--md-first vce-col--lg-first vce-col--xl-first" id="el-72e6a304"><div class="vce-col-inner" data-vce-do-apply="border margin background  el-72e6a304"><div class="vce-col-content" data-vce-element-content="true" data-vce-do-apply="padding el-72e6a304"><div class="vce-text-block"><div class="vce-text-block-wrapper vce" id="el-1e04b213" data-vce-do-apply="all el-1e04b213"><div><noscript><style>.vce-row-container .vcv-lozad {display: none}</style></noscript></div>
+<div>
+<div><noscript><style>.vce-row-container .vcv-lozad {display: none}</style></noscript></div>
+<div>
+<div><noscript><style>.vce-row-container .vcv-lozad {display: none}</style></noscript></div>
+<div>
+<h1><strong>Introduction</strong></h1>
+<p>In today's fast-paced world, finding ways to streamline tasks and boost productivity is essential. That's where the magic of automation comes in! In this article, we'll dive into the world of automated recurring tasks using the powerful combination of Rails, Sidekiq, and the Ice Cube gem. Get ready to make your work easier and more efficient.</p>
+<h2><strong>1/ Understanding Automated Recurring Tasks</strong></h2>
+<p>Imagine having a helper who can handle repetitive tasks for you without any manual intervention. That's exactly what automated recurring tasks do! With the right setup, your Rails application can automatically perform tasks like sending reminders, updating records, and more at scheduled intervals.</p>
+<h2><strong>2/ The Power of Sidekiq and Ice Cube</strong></h2>
+<ol>
+<li><strong>Sidekiq:</strong> Sidekiq is a fantastic tool that makes background processing a breeze in Rails. It's like having a dedicated worker who takes care of tasks behind the scenes, leaving your application responsive and speedy.</li>
+<li><strong>Ice Cube Gem:</strong> Ice Cube is your scheduling assistant. It helps you define when and how often tasks should be executed. It's like having a personal scheduler who never misses an appointment.</li>
+</ol>
+<h2><strong>3/ Real-Life Examples</strong></h2>
+<ol>
+<li><strong>Sending Weekly Reports:</strong> Let's say you want to send weekly reports to your team. With Sidekiq and Ice Cube, you can automate this process. Define the schedule using Ice Cube, and let Sidekiq handle the sending part.</li>
+<li><strong>Updating Records:</strong> Need to update records on a regular basis? Whether it's archiving old data or marking items as completed, your automated worker can take care of it, thanks to Sidekiq and Ice Cube.</li>
+</ol>
+<h2><strong>4/ Getting Started</strong></h2>
+<ol>
+<li><strong>Setting Up Sidekiq:</strong> Install and configure Sidekiq in your Rails application. This gem handles the background processing efficiently.</li>
+<li><strong>Integrating Ice Cube:</strong> Include the Ice Cube gem in your project to handle the scheduling aspects of your automated tasks.</li>
+<li><strong>Creating Recurring Tasks:</strong> Use the power of Ice Cube to define the schedules for your tasks. Whether it's daily, weekly, or custom intervals, Ice Cube has you covered.</li>
+<li><strong>Implementing Workers:</strong> Write Sidekiq workers that encapsulate the tasks you want to automate. These workers will be responsible for executing the scheduled actions.</li>
+</ol>
+<h3>Snipped code:&nbsp;</h3>
+<script src="https://gist.github.com/kokorolx/b64df3c20d9f93adf278ac57e16fa594.js"></script>
+<p>&nbsp;</p>
+<h2><strong>4 Benefits and Future Possibilities</strong></h2>
+<ol>
+<li><strong>Efficiency and Consistency:</strong> By automating recurring tasks, you ensure they're performed consistently and without manual effort.</li>
+<li><strong>Time and Resource Savings:</strong> Automated tasks free up your team's time, allowing them to focus on more important aspects of your application.</li>
+<li><strong>Exploring Further:</strong> Once you're comfortable with automated recurring tasks, you can explore more advanced features like error handling, task dependencies, and more.</li>
+</ol>
+<h2><strong>Conclusion</strong></h2>
+<p>Automating recurring tasks in Rails using Sidekiq and Ice Cube is a game-changer. You're not just saving time – you're creating a smoother and more efficient workflow. So why not give it a try? With the right setup, you'll be amazed at how much easier your work becomes.</p>
+<p>&nbsp;</p>
+<p>&nbsp;</p>
+<p>------------------------------------</p>
+<p><strong>Call to Action:</strong> Have you experimented with automated recurring tasks in Rails? Share your experiences and insights in the comments below. If you're new to this concept, don't worry – we have step-by-step guides to help you set up your first automated worker.</p>
+<p><strong>Keywords and SEO:</strong> Rails automation, Sidekiq background processing, Ice Cube gem, automated recurring tasks, scheduling tasks in Rails, efficient task automation, benefits of Sidekiq and Ice Cube, getting started with automated workers in Rails.</p>
+<p>&nbsp;</p>
+</div>
+<div>&nbsp;</div>
+</div>
+<div>&nbsp;</div>
+</div>
+<div>&nbsp;</div></div></div></div></div></div></div></div></div>
+<div class="post-views content-post post-366 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">14</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2023/08/06/simplifying-your-work-with-automated-recurring-tasks-in-rails-using-sidekiq-and-ice-cube/">Simplifying Your Work with Automated Recurring Tasks in Rails Using Sidekiq and Ice Cube</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Understanding User Scripts When Launching EC2 Instances</title>
+		<link>/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sat, 13 May 2023 15:36:23 +0000</pubDate>
+				<category><![CDATA[AWS]]></category>
+		<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Tips]]></category>
+		<guid isPermaLink="false">/?p=359</guid>
+
+					<description><![CDATA[<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Amazon Elastic Compute Cloud (EC2) is a popular cloud computing service that allows users to launch virtual servers, also known as instances, in the cloud. When launching an EC2 instance, users can provide a user script, also known as user data, that will be executed during the instance&#8217;s launch process. In this blog post, we will discuss user scripts in more detail and how they can be used to automate instance configuration and management tasks.</p>
+
+
+
+<p></p>
+
+
+
+<h2 class="wp-block-heading">What are User Scripts?</h2>
+
+
+
+<p>User scripts are scripts that are executed when an EC2 instance is launched. They can be written in any scripting language, including bash, Python, or PowerShell, and are passed to the instance during launch as part of the instance metadata. User scripts can be used to perform various tasks, such as installing software, configuring the instance, and running custom scripts.</p>
+
+
+
+<h2 class="wp-block-heading">Why Use User Scripts?</h2>
+
+
+
+<p>User scripts can be used to automate the process of launching and configuring EC2 instances. This can save time and reduce the chance of errors when configuring instances manually. For example, you can use user scripts to automatically install and configure web servers, databases, or other software on the instance. User scripts can also be used to customize instances based on your specific needs, such as setting up a specific directory structure or configuring the network settings.</p>
+
+
+
+<h2 class="wp-block-heading">How to Use User Scripts?</h2>
+
+
+
+<p>To use a user script when launching an EC2 instance, you can provide the script as part of the instance&#8217;s user data. This can be done through the EC2 console, API, or command-line interface. When the instance is launched, the user script will be passed to the instance and executed automatically.</p>
+
+
+
+<p>It&#8217;s important to note that user scripts should be idempotent, meaning that they should be able to be executed multiple times without causing issues. This is because EC2 instances can be stopped and started multiple times during their lifetime, and the user script will be executed each time the instance is launched.</p>
+
+
+
+<p>Example user script to deploy Rails app with redis, nodejs, ruby installed with rvm, postgresql and puma config for nginx (for <strong>ubuntu</strong>)</p>
+
+
+
+<pre class="wp-block-code"><code>#!/bin/bash
+sudo apt-get update
+sudo apt-get -y install build-essential libssl-dev libreadline-dev zlib1g-dev git
+sudo apt-get -y install libpq-dev postgresql postgresql-contrib
+sudo apt-get -y install redis-server
+sudo apt-get -y install nodejs
+sudo apt-get -y install nginx
+
+# Install RVM and Ruby
+sudo apt-add-repository -y ppa:rael-gc/rvm
+sudo apt-get update
+sudo apt-get -y install rvm
+source /etc/profile.d/rvm.sh
+rvm install 2.7.4
+rvm use 2.7.4 --default
+
+# Install Bundler
+gem install bundler
+
+# Configure PostgreSQL
+sudo -u postgres createuser --superuser ubuntu
+sudo -u postgres createdb -O ubuntu myapp_production
+
+# Configure Nginx
+sudo rm /etc/nginx/sites-enabled/default
+sudo touch /etc/nginx/sites-available/myapp
+sudo ln -s /etc/nginx/sites-available/myapp /etc/nginx/sites-enabled/myapp
+sudo bash -c "cat > /etc/nginx/sites-available/myapp" &lt;&lt;EOF
+upstream myapp {
+  server unix:///var/www/myapp/myapp.sock;
+}
+
+server {
+  listen 80;
+  server_name myapp.com;
+
+  root /var/www/myapp/public;
+
+  try_files \$uri/index.html \$uri @myapp;
+
+  location @myapp {
+    proxy_pass http://myapp;/
+    proxy_set_header Host \$host;
+    proxy_set_header X-Real-IP \$remote_addr;
+    proxy_set_header X-Forwarded-For \$proxy_add_x_forwarded_for;
+    proxy_set_header X-Forwarded-Proto \$scheme;
+    proxy_redirect off;
+    proxy_buffering off;
+    proxy_http_version 1.1;
+    proxy_set_header Connection '';
+    chunked_transfer_encoding off;
+    proxy_cache_bypass \$http_pragma;
+    proxy_cache_revalidate on;
+    proxy_cache_valid 200 5m;
+    expires 5m;
+  }
+}
+EOF
+
+sudo service nginx restart
+</code></pre>
+
+
+
+<p>When the instance is booted for the first time, this script will run and the output will be in the <code>/var/log/cloud-init-output.log</code> directory on your instance.</p>
+
+
+
+<h2 class="wp-block-heading">Best Practices for Using User Scripts</h2>
+
+
+
+<p>When using user scripts, there are some best practices to follow to ensure that they are effective and reliable:</p>
+
+
+
+<ol><li>Use version control: User scripts should be stored in a version control system, such as Git, to ensure that they can be easily tracked and modified over time.</li><li>Test your scripts: Before using user scripts in production, they should be thoroughly tested to ensure that they work as expected.</li><li>Keep scripts simple: User scripts should be simple and easy to read, to avoid potential issues when troubleshooting.</li><li>Use cloud-init: Cloud-init is a tool that can be used to configure and customize instances when they are launched. It can be used to install packages, run scripts, and set up users and SSH keys.</li><li>Use pre-built scripts: There are many pre-built scripts available online that can be used as a starting point for configuring instances. These can save time and reduce the risk of errors when writing user scripts from scratch.</li></ol>
+
+
+
+<h2 class="wp-block-heading">Conclusion</h2>
+
+
+
+<p>User scripts are a powerful tool for automating the process of launching and configuring EC2 instances. By providing a script during instance launch, users can automate the installation and configuration of software, customize instances to their specific needs, save time, and reduce the risk of errors when configuring instances manually. By following best practices for using user scripts, such as testing scripts and keeping them simple, users can ensure that their instances are configured reliably and effectively.</p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p>Notion: https://www.notion.so/hoangtamle/Deploy-rails-to-AWS-47d46f0310e54ebcb9b0c11e6b262b49?pvs=4</p>
+<div class="post-views content-post post-359 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2023/05/13/understanding-user-scripts-when-launching-ec2-instances/">Understanding User Scripts When Launching EC2 Instances</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>How to Calculate Puma WEB_CONCURRENCY and MAX_THREADS for Optimal Rails Application Performance</title>
+		<link>/blog/2023/04/02/calculate-puma-web_concurrency-and-max_threads/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 02 Apr 2023 16:39:51 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">/?p=349</guid>
+
+					<description><![CDATA[<p>1/ What is Puma? Puma is a high-performance, multi-threaded web server designed specifically for Ruby on Rails applications. It&#8217;s a lightweight and scalable Rack-compatible HTTP server capable of serving both static and dynamic content. Due to its exceptional performance, scalability, and low memory usage, Puma is a favored choice for high-traffic web applications. Paired with [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2023/04/02/calculate-puma-web_concurrency-and-max_threads/">How to Calculate Puma WEB_CONCURRENCY and MAX_THREADS for Optimal Rails Application Performance</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<h2 class="wp-block-heading">1/ What is Puma?</h2>
+
+
+
+<p>Puma is a high-performance, multi-threaded web server designed specifically for Ruby on Rails applications. It&#8217;s a lightweight and scalable Rack-compatible HTTP server capable of serving both static and dynamic content. Due to its exceptional performance, scalability, and low memory usage, Puma is a favored choice for high-traffic web applications. Paired with Nginx as a reverse proxy server, Puma provides a robust infrastructure for fast and reliable web application delivery. Additionally, Puma is designed to work seamlessly with the Ruby on Rails application server interface (ASGI) specification, making it compatible with a wide range of ASGI-compliant web frameworks.</p>
+
+
+
+<h2 class="wp-block-heading">2/ What is WEB_CONCURRENCY and MAX_THREADS</h2>
+
+
+
+<p><code>WEB_CONCURRENCY</code> and <code>MAX_THREADS</code> are environment variables used to configure the number of worker processes and threads used by the Puma web server in a Ruby on Rails application.</p>
+
+
+
+<ul><li><code>WEB_CONCURRENCY</code>: It specifies the number of worker processes to run in parallel to handle incoming HTTP requests. This value should be set based on the available CPU resources on the server. As a general rule of thumb, it can be calculated by multiplying the number of CPU cores with a factor that takes into account the memory available on the server. The formula for calculating <code>WEB_CONCURRENCY</code> is often recommended to be <code>(2 * number of CPU cores) + 1</code>.</li><li><code>MAX_THREADS</code>: It specifies the number of threads to be used in each worker process to process requests concurrently. This value should be set based on the available memory on the server. As a general rule of thumb, it can be set to a value between 1 and 5, depending on the size of the requests and the memory requirements of the application.</li></ul>
+
+
+
+<p>Both of these values are critical to the performance and scalability of a Ruby on Rails application running on the Puma web server.</p>
+
+
+
+<h2 class="wp-block-heading">3/ Formulas</h2>
+
+
+
+<pre class="wp-block-code"><code>WEB_CONCURRENCY = (CORES * (1 + RAM / GB_PER_CORE) / 2).floor 
+
+OR
+
+WEB_CONCURRENCY = <span style="background-color: inherit; font-size: 0.9375rem;">(2 * number of CPU cores) + 1</span></code></pre>
+
+
+
+<pre class="wp-block-code"><code>MAX_THREADS = (RAM / WEB_CONCURRENCY / 25).floor * 5</code></pre>
+
+
+
+<p>Where:</p>
+
+
+
+<ul><li><code>CORES</code> is the number of CPU cores available on your server (in your case, 1 for EC2 instance type t2.micro)</li><li><code>RAM</code> is the amount of RAM available on your server (in your case, 2GB)</li><li><code>GB_PER_CORE</code> is the amount of RAM per core (typically 2-4GB depending on your workload)</li></ul>
+
+
+
+<h2 class="wp-block-heading">3/ Ten common EC2 instances</h2>
+
+
+
+<figure class="wp-block-table is-style-regular"><table><thead><tr><th>EC2 Instance Type</th><th>vCPUs</th><th>Memory (GB)</th><th>WEB_CONCURRENCY</th><th>MAX_THREADS</th></tr></thead><tbody><tr><td>t2.micro</td><td>1</td><td>1</td><td>2</td><td>5</td></tr><tr><td>t2.small</td><td>1</td><td>2</td><td>4</td><td>10</td></tr><tr><td>t2.medium</td><td>2</td><td>4</td><td>8</td><td>20</td></tr><tr><td>t3.micro</td><td>2</td><td>1</td><td>2</td><td>5</td></tr><tr><td>t3.small</td><td>2</td><td>2</td><td>4</td><td>10</td></tr><tr><td>t3.medium</td><td>2</td><td>4</td><td>8</td><td>20</td></tr><tr><td>m5.large</td><td>2</td><td>8</td><td>16</td><td>40</td></tr><tr><td>m5.xlarge</td><td>4</td><td>16</td><td>32</td><td>80</td></tr><tr><td>m5.2xlarge</td><td>8</td><td>32</td><td>64</td><td>160</td></tr><tr><td>m5.4xlarge</td><td>16</td><td>64</td><td>128</td><td>320</td></tr></tbody></table></figure>
+
+
+
+<p>Note: The above values are recommendations and may need to be adjusted based on the specific needs of your application.</p>
+
+
+
+<p>The <code>WEB_CONCURRENCY</code> value represents the number of Puma worker processes that will be spawned to handle incoming requests. This should be set based on the number of available CPU cores on the EC2 instance. A good starting point is to set the <code>WEB_CONCURRENCY</code> equal to the number of vCPUs on the instance.</p>
+
+
+
+<p>The <code>MAX_THREADS</code> value represents the maximum number of concurrent requests that can be handled by each worker process. This should be set based on the amount of available memory on the EC2 instance. A good starting point is to set the <code>MAX_THREADS</code> to the number of cores multiplied by 5.</p>
+
+
+
+<p>For example, for an <code>m5.xlarge</code> instance with 4 vCPUs and 16GB of memory, we would set <code>WEB_CONCURRENCY</code> to 4 and <code>MAX_THREADS</code> to 80 (4 cores x 5 threads per core x 4 worker processes).</p>
+
+
+
+<p>It&#8217;s important to note that these values should be tested and adjusted based on the specific needs and workload of your application.</p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+
+
+
+<p></p>
+<div class="post-views content-post post-349 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">103</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2023/04/02/calculate-puma-web_concurrency-and-max_threads/">How to Calculate Puma WEB_CONCURRENCY and MAX_THREADS for Optimal Rails Application Performance</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</title>
+		<link>/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:56:01 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[Amazon Simple Notification Service]]></category>
+		<category><![CDATA[Amazon Simple Queue Service]]></category>
+		<category><![CDATA[Amazon Simple Storage Service]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS SNS]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[S3]]></category>
+		<category><![CDATA[S3 Event Notification]]></category>
+		<category><![CDATA[SNS]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=79</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server Table of contents: Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản Giới thiệu Amazon Simple Notification Service [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ của các thành phần này trong Mail server</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu Amazon Simple Queue Service &#8211; SQS và một số tính năng cơ bản </li><li>Giới thiệu Amazon Simple Notification Service &#8211; SNS và một số tính năng cơ bản</li><li>Giới thiệu Amazon Simple Storage Service &#8211; S3 và một số tính năng cơ bản</li><li>Nhiệm vụ của SQS và S3 trong Mail server và cách config để hoạt động với AWS lambda</li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+<div class="post-views content-post post-79 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">25</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-5-gioi-thieu-aws-sqs-aws-sns-aws-s3-va-cach-config-de-hoat-dong-voi-lambda/">[TUT] Phần 5 &#8211; Giới thiệu AWS S3 &#8211; SQS &#8211; SNS và cách config để hoạt động với lambda</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</title>
+		<link>/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:55:36 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[AWS S3]]></category>
+		<category><![CDATA[AWS SQS]]></category>
+		<category><![CDATA[Google Clond Function]]></category>
+		<category><![CDATA[iRdMail]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<category><![CDATA[SQS]]></category>
+		<guid isPermaLink="false">/?p=73</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework. Table of contents: Giới thiệu serverless architecture và serverless framework Giới thiệu AWS Lambda So sánh AWS Lambda với Google Cloud Functions Nhiệm vụ của AWS Lambda trong hệ thống Lambda nhận notify từ MailGun [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về AWS Lambda &#8211; Serverless framework.</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu serverless architecture và serverless framework</li><li>Giới thiệu AWS Lambda</li><li>So sánh AWS Lambda với Google Cloud Functions </li><li>Nhiệm vụ của AWS Lambda trong hệ thống<ol><li>Lambda nhận notify từ MailGun</li><li>Lambda nhận notify từ SQS để upload <code>Raw email</code> lên AWS S3</li><li>Lambda nhận notify từ AWS S3 để download và gửi mail đến iRedMail</li></ol></li><li>Kết luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-5---gioi-thieu-aws-sqs-aws-sns-aws-s3-va-nhiem-vu/(opens in a new tab)">Phần 5 &#8211; Giới thiệu AWS SQS, AWS SNS, AWS S3 và nhiệm vụ </a>trong Mail server</p>
+<div class="post-views content-post post-73 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">21</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-4-aws-lambda-serverless-framework/">[TUT] Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</title>
+		<link>/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:55:07 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[AWS]]></category>
+		<category><![CDATA[DKIM record]]></category>
+		<category><![CDATA[DMARC record]]></category>
+		<category><![CDATA[DNS Record]]></category>
+		<category><![CDATA[Route53]]></category>
+		<category><![CDATA[SPF record]]></category>
+		<guid isPermaLink="false">/?p=66</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về AWS Route53 và các DNS cần thiết cho mail server Table of contents: Giới thiệu AWS Route53 Giới thiệu các DNS record cần thiết MX record SPF record DKIM record DMARC record Config Sending/Receiving và Tracking records của MailGun Cách [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/">[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về AWS Route53 và các DNS cần thiết cho mail server</p>
+
+
+
+<h2 class="wp-block-heading">Table of contents:</h2>
+
+
+
+<ol><li>Giới thiệu AWS Route53</li><li>Giới thiệu các DNS record cần thiết<ol><li>MX record</li><li>SPF record</li><li>DKIM record</li><li>DMARC record</li></ol></li><li>Config Sending/Receiving và Tracking records của <a href="/blog/tag/mailgun/" target="_blank" rel="noreferrer noopener">MailGun</a></li><li>Cách lấy DKIM/DMARC record từ iRedMail server và config Route53</li><li>Một số lưu ý khi config DNS record</li><li>Kết Luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/?p=73" target="_blank" rel="noreferrer noopener">Phần 4 &#8211; AWS Lambda &#8211; Serverless framework</a></p>
+<div class="post-views content-post post-66 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">39</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/">[TUT] Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết cho mail server</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</title>
+		<link>/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Sun, 24 Apr 2022 11:54:59 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[iRedMail]]></category>
+		<category><![CDATA[Mail Server]]></category>
+		<category><![CDATA[MailGun]]></category>
+		<guid isPermaLink="false">/?p=58</guid>
+
+					<description><![CDATA[<p>Tiếp tục Series hướng dẫn setup Server mail, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với iRedMail Table of contents Giới thiệu MailGun So sánh giữ MailGun và một số dịch vụ Mail khác Giới thiệu [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Tiếp tục <a href="/blog/2021/04/04/tut-series-huong-dan-setup-server-mail/" target="_blank" rel="noreferrer noopener">Series hướng dẫn setup Server mail</a>, hôm nay mình sẽ giới thiệu về MailGun, nhiệm vụ chính của nó trong hệ thống và một số config để MailGun có thể hoạt động với <a href="/blog/2021/04/04/tut-phan-1-giio-thieu-va-huong-dan-cai-dat-server-mail-voi-iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></p>
+
+
+
+<h2 class="wp-block-heading">Table of contents</h2>
+
+
+
+<ol><li>Giới thiệu MailGun</li><li>So sánh giữ MailGun và một số dịch vụ Mail khác</li><li>Giới thiệu một số chức năng của MailGun</li><li>Vì sao phải sử dụng MailGun trong Mail server của mình?</li><li>Tích hợp MailGun vào <a href="/blog/tag/iredmail/" target="_blank" rel="noreferrer noopener">iRedMail</a></li><li>Một số tích hợp khác để MailGun có thể hoạt động với <a href="/blog/tag/aws/">AWS</a></li><li>Kết Luận</li></ol>
+
+
+
+<h2 class="wp-block-heading">To be continued&#8230;</h2>
+
+
+
+<p>Bài tiếp theo: <a href="/blog/2021/04/04/tut-phan-3-gioi-thieu-aws-route53-va-cac-dns-can-thiet-cho-mail-server/(opens in a new tab)" target="_blank" rel="noreferrer noopener">Phần 3 &#8211; Giới thiệu AWS Route53 và các DNS cần thiết của mail server</a></p>
+<div class="post-views content-post post-58 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">12</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/24/tut-phan-2-gioi-thieu-mailgun-mot-nha-cung-cap-dich-vu-smtp-mien-phi/">[TUT] Phần 2 &#8211; Giới thiệu MailGun &#8211; một nhà cung cấp dịch vụ SMTP miễn phí</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Tìm số lần xuất hiện của user_name trong file CSV 13M line</title>
+		<link>/blog/2022/04/20/find-something-in-csv-with-ruby/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Wed, 20 Apr 2022 08:25:45 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[csv]]></category>
+		<category><![CDATA[ruby]]></category>
+		<guid isPermaLink="false">/?p=309</guid>
+
+					<description><![CDATA[<p>Đề bài toán:Tìm số lần xuất hiện của user_name trong file CSVFile CSV có khoản hơn 13 triệu dòng dữ liệu (nặng khoảng 500Mb) Mình có benchmark 1 số cách: Result: Như vậy, nếu đọc file CSV như 1 chuỗi và dùng regex thì tốc độ nhanh nhất.Một số riskies: Có nhiều request và hệ [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/20/find-something-in-csv-with-ruby/">Tìm số lần xuất hiện của user_name trong file CSV 13M line</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Đề bài toán:<br>Tìm số lần xuất hiện của <code>user_name</code> trong file CSV<br>File CSV có khoản hơn 13 triệu dòng dữ liệu (nặng khoảng 500Mb)</p>
+
+
+
+<pre class="wp-block-code"><code># CSV file
+
+"user_name","suspect_flag"
+aadilab,suspect_conversations_flag
+aadilab,suspect_searches_flag</code></pre>
+
+
+
+<p>Mình có benchmark 1 số cách:</p>
+
+
+
+<pre class="wp-block-code"><code>require 'benchmark'
+def ben_csv
+  @csv = CSV.read("db/suspect_workers_flag_super_fake.csv")
+  Benchmark.bmbm do |x|
+    x.report("select array:") {
+      p @csv.select {|x, y| x == "zylafl"}.count
+    }
+  end
+end
+
+def ben_file
+  @csv_str = File.read("db/suspect_workers_flag_super_fake.csv")
+  Benchmark.bmbm do |x|
+    x.report("string regex:") {
+      p @csv_str.scan(/zylafl\,/).count
+    }
+  end
+end
+
+def ben_shellscript
+  Benchmark.bmbm do |x|
+    x.report("shel script:") {
+      p `grep -o 'zylafl,' db/suspect_workers_flag_super_fake.csv | wc -l`
+    }
+  end
+end</code></pre>
+
+
+
+<p>Result: </p>
+
+
+
+<pre class="wp-block-code"><code>Rehearsal -------------------------------------------------
+string regex: 3
+  0.273001   0.001638   0.274639 (  0.275356)
+---------------------------------------- total: 0.274639sec
+
+Rehearsal ------------------------------------------------
+shel script: "       3\n"
+  3.452150   0.595941  13.451730 (  9.518582)
+-------------------------------------- total: 13.451730sec
+
+Rehearsal -------------------------------------------------
+select array: 3
+  4.287471   0.338820   4.626291 (  4.680256)
+---------------------------------------- total: 4.626291sec</code></pre>
+
+
+
+<p>Như vậy, nếu đọc file CSV như 1 chuỗi và dùng regex thì tốc độ nhanh nhất.<br>Một số riskies:</p>
+
+
+
+<ul><li>Có nhiều request và hệ thống sẽ load file CSV lên để đọc, do chưa có cơ chế cache nên sẽ tốn khá nhiều tài nguyên</li><li>Tốc độ sẽ bị giảm xuống, RAM, CPU sẽ được dùng nhiều hơn nếu có nhiều dữ liệu hơn và có thể dẫn đến <code>Not responding</code> trên server</li></ul>
+
+
+
+<p><br>Another solution from HaVS:<br>Tạo file CSV mới, trong file mới này sẽ tổng kết lại số lần xuất hiện của user_name.</p>
+
+
+
+<pre class="wp-block-code"><code># CSV file
+
+"user_name", "count"
+abc,3
+abd,2
+abf,2</code></pre>
+
+
+
+<p>Khi cần mình sẽ gọi file mới để lấy value ra.</p>
+
+
+
+<p>Cần tạo worker để update file mới vào mỗi tối hoặc 1 khung thời gian nào đó</p>
+
+
+
+<p>Trigger callback khi record được insert vào db (có thể sẽ khó nếu dùng data từ database khác)</p>
+
+
+
+<p>Risk: </p>
+
+
+
+<ul><li>Data có thể không được up-to-date</li></ul>
+
+
+
+<p>Bạn còn cách nào khác hay hơn không?</p>
+
+
+
+<p></p>
+<div class="post-views content-post post-309 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">10</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/20/find-something-in-csv-with-ruby/">Tìm số lần xuất hiện của user_name trong file CSV 13M line</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>Cách tìm ra method đang được gọi trong Ruby</title>
+		<link>/blog/2022/04/19/cach-tim-ra-method-dang-duoc-goi-trong-ruby/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Tue, 19 Apr 2022 05:27:17 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<category><![CDATA[debug]]></category>
+		<category><![CDATA[ruby]]></category>
+		<guid isPermaLink="false">/?p=302</guid>
+
+					<description><![CDATA[<p>Sẵn đây e xin phép chia sẽ 1 trick để debug trong ruby với mọi người, ai biết rồi thì bỏ qua cho em nha (hi vọng không phải em là người biết cuối cùng (rofl)) Chuyện là trong dự án có rất nhiều module, gem được include vào `active_record.rb`, khi mình định nghĩa 1 [&#8230;]</p>
+<p>The post <a rel="nofollow" href="/blog/2022/04/19/cach-tim-ra-method-dang-duoc-goi-trong-ruby/">Cách tìm ra method đang được gọi trong Ruby</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Sẵn đây e xin phép chia sẽ 1 trick để debug trong ruby với mọi người, ai biết rồi thì bỏ qua cho em nha (hi vọng không phải em là người biết cuối cùng (rofl))</p>
+
+
+
+<p>Chuyện là trong dự án có rất nhiều module, gem được include vào `active_record.rb`, khi mình định nghĩa 1 method mới mà lỡ trùng với method của gem nào đó đã defined rồi(và include vào sau) thì nó sẽ gọi method đó.</p>
+
+
+
+<p>Issue của em là: define 1 method mới tên là publish, xui cái là nó đã được define rồi nên lúc chạy nó bào lỗi private method.</p>
+
+
+
+<p></p>
+
+
+
+<figure class="wp-block-image size-large"><img fetchpriority="high" decoding="async" width="1024" height="212" src="/wp-content/uploads/2022/04/send-ruby-1024x212.png" alt="" class="wp-image-303" srcset="/wp-content/uploads/2022/04/send-ruby-1024x212.png 1024w, /wp-content/uploads/2022/04/send-ruby-300x62.png 300w, /wp-content/uploads/2022/04/send-ruby-768x159.png 768w, /wp-content/uploads/2022/04/send-ruby-500x104.png 500w, /wp-content/uploads/2022/04/send-ruby-800x166.png 800w, /wp-content/uploads/2022/04/send-ruby.png 1176w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>Cách để tìm method nó đang gọi là dùng <strong>send</strong></p>
+
+
+
+<figure class="wp-block-image size-large"><img decoding="async" width="1024" height="123" src="/wp-content/uploads/2022/04/send-ruby-to-find-private-method-1024x123.png" alt="" class="wp-image-304" srcset="/wp-content/uploads/2022/04/send-ruby-to-find-private-method-1024x123.png 1024w, /wp-content/uploads/2022/04/send-ruby-to-find-private-method-300x36.png 300w, /wp-content/uploads/2022/04/send-ruby-to-find-private-method-768x92.png 768w, /wp-content/uploads/2022/04/send-ruby-to-find-private-method-500x60.png 500w, /wp-content/uploads/2022/04/send-ruby-to-find-private-method-800x96.png 800w, /wp-content/uploads/2022/04/send-ruby-to-find-private-method.png 1175w" sizes="(max-width: 1024px) 100vw, 1024px" /></figure>
+
+
+
+<p>&#8230; và thế là chúa đã giúp em tìm ra được nguyên nhân bị <strong>private method</strong>. Method <code>publish</code> đã được defined trong gem `wisper`</p>
+
+
+
+<p>Câu chuyện của em đến đây là hết ạ.</p>
+
+
+
+<p></p>
+
+
+
+<p>Thanks to Deepesh.</p>
+
+
+
+<p></p>
+
+
+
+<pre class="wp-block-verse">Simple note for me!</pre>
+<div class="post-views content-post post-302 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">20</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/04/19/cach-tim-ra-method-dang-duoc-goi-trong-ruby/">Cách tìm ra method đang được gọi trong Ruby</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+		<item>
+		<title>[Ruby] Map and return?</title>
+		<link>/blog/2022/01/13/ruby-map-and-return/</link>
+		
+		<dc:creator><![CDATA[kokorolx]]></dc:creator>
+		<pubDate>Thu, 13 Jan 2022 09:20:32 +0000</pubDate>
+				<category><![CDATA[Technology]]></category>
+		<guid isPermaLink="false">/?p=295</guid>
+
+					<description><![CDATA[<p>Hôm nay nhận được 1 câu hỏi đến từ vị trí của CườngNĐ, mình vẫn chưa tìm hiểu lý do tại sao lại có kết quả khác nhau như vậy. Viết đây để nhớ, mai mốt tìm ra lý do rồi update lại bài blog này</p>
+<p>The post <a rel="nofollow" href="/blog/2022/01/13/ruby-map-and-return/">[Ruby] Map and return?</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></description>
+										<content:encoded><![CDATA[
+<p>Hôm nay nhận được 1 câu hỏi đến từ vị trí của CườngNĐ, mình vẫn chưa tìm hiểu lý do tại sao lại có kết quả khác nhau như vậy. Viết đây để nhớ, mai mốt tìm ra lý do rồi update lại bài blog này</p>
+
+
+
+<p></p>
+
+
+
+<p>Câu hỏi:</p>
+
+
+
+<p></p>
+
+
+
+<pre class="wp-block-code"><code># ruby
+arr =&#91;&#91;1,2], &#91;3,4], &#91;5,6]]
+arr.map{|a,b| return a if a + b &gt; 10}
+
+#&gt; LocalJumpError (unexpected return)
+Nếu đổi lại thế này
+<meta charset="utf-8">arr.map{|a,b| a if a + b &gt; 10}
+#&gt; &#91;nil, nil, 5]</code></pre>
+
+
+
+<p>Và nếu để vào method như thế này</p>
+
+
+
+<pre class="wp-block-code"><code># ruby
+
+
+def test_arr
+  arr =&#91;&#91;1,2], &#91;3,4], &#91;5,6]]
+  arr.map{|a, b| return a if a + b &gt; 10}
+end
+
+#&gt; 5</code></pre>
+
+
+
+<p><a href="https://makandracards.com/makandra/46939-ruby-a-small-summary-of-what-return-break-and-next-means-for-blocks#section-return-within-a-block">Tại sao nhỉ?<br></a><br></p>
+<div class="post-views content-post post-295 entry-meta">
+				<span class="post-views-icon dashicons dashicons-chart-bar"></span> <span class="post-views-label">Post Views:</span> <span class="post-views-count">16</span>
+			</div><p>The post <a rel="nofollow" href="/blog/2022/01/13/ruby-map-and-return/">[Ruby] Map and return?</a> appeared first on <a rel="nofollow" href="/">Th?nk And Grow</a>.</p>
+]]></content:encoded>
+					
+		
+		
+			</item>
+	</channel>
+</rss>
